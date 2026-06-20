@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Health Blog | Dr. Adonis Panagidis Dental Center</title>
+    <meta name="description" content="Read articles on the latest dental technologies, aesthetic smile designs, implantology, and oral care tips from Dr. Adonis Panagidis.">
+    <meta name="keywords" content="Adonis Panagidis, Dental Blog, oral health, dental implants, teeth whitening, AI dentistry, Cyprus">
+    
+    <!-- Icons and Fonts -->
+    <link rel="icon" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header scrolled" id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/images/logo_header.png" alt="Dr. Adonis Panagidis" class="logo-img">
+            </a>
+            
+            <nav class="nav" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
+                    <li><a href="index.html#team" class="nav-link">TEAM</a></li>
+                    <li><a href="index.html#testimonials" class="nav-link">TESTIMONIALS</a></li>
+                    <li><a href="index.html#gallery" class="nav-link">GALLERY</a></li>
+                    <li><a href="blog.html" class="nav-link active">BLOG</a></li>
+                    <li><a href="index.html#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+                <a href="index.html#appointment" class="btn btn-primary btn-nav-cta">Appointment</a>
+            </nav>
+            
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main style="margin-top: var(--header-height);">
+        <!-- Blog Title Header -->
+        <section class="blog-header">
+            <div class="container">
+                <h1>Dental Health Blog</h1>
+                <p class="section-subtitle" style="margin-bottom: 0;">Insights, health recommendations, and tech updates from our clinical experts.</p>
+            </div>
+        </section>
+
+        <!-- Blog Main Content Hub -->
+        <section class="section">
+            <div class="container">
+                <div class="blog-controls">
+                    <!-- Search input -->
+                    <div class="search-box-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-posts" class="search-input" placeholder="Search dental topics, treatments or technologies...">
+                    </div>
+                    
+                    <!-- Filters tags -->
+                    <div class="category-tags" id="category-filter-container">
+                        <button class="tag-btn active" data-category="all">All Articles</button>
+                        <button class="tag-btn" data-category="general">General & Hygiene</button>
+                        <button class="tag-btn" data-category="aesthetic">Aesthetic Design</button>
+                        <button class="tag-btn" data-category="implants">Implants & Surgery</button>
+                        <button class="tag-btn" data-category="technology">Technology & AI</button>
+                        <button class="tag-btn" data-category="womens">Women's Health</button>
+                    </div>
+                </div>
+
+                <!-- Blog Grid -->
+                <div class="blog-grid" id="blog-posts-grid">
+                    <!-- Loaded dynamically via blog.js -->
+                    <div class="text-center" style="grid-column: 1/-1; padding: 50px 0;">
+                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2.5rem; color: var(--secondary);"></i>
+                        <p style="margin-top: 15px;">Loading articles...</p>
+                    </div>
+                </div>
+
+                <!-- Pagination Container -->
+                <div class="pagination" id="blog-pagination">
+                    <!-- Filled dynamically via blog.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="assets/images/logo_header.png" alt="Dr. Adonis Panagidis" class="footer-logo" style="margin-bottom: 20px;">
+                <p>Providing state-of-the-art dental clinical solutions with a warm, caring, family-first approach.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/Dental-Center-Dr-Adonis-Panagidis-110588337290234/" target="_blank" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://cy.linkedin.com/in/adonis-panagidis-47b11433" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/dentalcentreadonispanagidis/" target="_blank" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/35799382880" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Clinical Services</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                    <li><a href="blog.html">Health Blog</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Reach Us</h4>
+                <p><i class="fa-solid fa-map-pin"></i> 15 Androkleous Str., Flat 403, 1061 Nicosia</p>
+                <p><i class="fa-solid fa-phone"></i> +357 22-452345/6</p>
+                <p><i class="fa-solid fa-envelope"></i> apanagidisdentalcenter@gmail.com</p>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Dr. Adonis Panagidis Dental Center. All rights reserved. | Registered GHS (GESY) Provider.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/blog.js"></script>
+</body>
+</html>

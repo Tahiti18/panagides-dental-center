@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post | Dr. Adonis Panagidis Dental Center</title>
+    <meta name="description" content="Read clinical insights and updates from Dr. Adonis Panagidis Dental Center.">
+    
+    <!-- Icons and Fonts -->
+    <link rel="icon" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header scrolled" id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/images/logo_header.png" alt="Dr. Adonis Panagidis" class="logo-img">
+            </a>
+            
+            <nav class="nav" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="index.html#services" class="nav-link">SERVICES</a></li>
+                    <li><a href="index.html#team" class="nav-link">TEAM</a></li>
+                    <li><a href="index.html#testimonials" class="nav-link">TESTIMONIALS</a></li>
+                    <li><a href="index.html#gallery" class="nav-link">GALLERY</a></li>
+                    <li><a href="blog.html" class="nav-link">BLOG</a></li>
+                    <li><a href="index.html#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+                <a href="index.html#appointment" class="btn btn-primary btn-nav-cta">Appointment</a>
+            </nav>
+            
+            <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Post Hero / Banner -->
+        <section class="post-hero" id="post-hero-banner">
+            <img src="assets/images/hero_slide1.png" alt="Post Banner" class="post-hero-img" id="post-banner-img">
+            <div class="post-hero-overlay"></div>
+        </section>
+
+        <!-- Post Content Layout -->
+        <section class="section" style="padding-top: 40px;">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <div class="post-breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; align-self: center;"></i>
+                    <a href="blog.html">Blog</a>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; align-self: center;"></i>
+                    <span id="breadcrumb-title">Article Title</span>
+                </div>
+
+                <div class="post-layout">
+                    <!-- Main Article Content -->
+                    <article class="post-main-content">
+                        <div class="post-header">
+                            <h1 class="post-title" id="post-main-title">Loading Article...</h1>
+                            <div class="post-meta-details">
+                                <span class="blog-tag" id="post-tag">Dental</span>
+                                <span><i class="fa-regular fa-calendar-days"></i> <span id="post-date">June 2026</span></span>
+                                <span><i class="fa-regular fa-clock"></i> <span id="post-read-time">3 min read</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Article Body -->
+                        <div class="post-body" id="post-main-body">
+                            <!-- Populated dynamically via post.js -->
+                            <div class="text-center" style="padding: 50px 0;">
+                                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2.5rem; color: var(--secondary);"></i>
+                                <p style="margin-top: 15px;">Fetching post contents...</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <!-- Search Widget -->
+                        <div class="sidebar-widget">
+                            <h3>Search Blog</h3>
+                            <form action="blog.html" method="GET">
+                                <div class="search-box-wrapper" style="margin-bottom: 0;">
+                                    <i class="fa-solid fa-magnifying-glass" style="left: 14px;"></i>
+                                    <input type="text" name="q" class="search-input" placeholder="Search articles..." style="padding: 12px 12px 12px 40px; font-size: 0.9rem;">
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Related Posts Widget -->
+                        <div class="sidebar-widget">
+                            <h3>Related Articles</h3>
+                            <div class="related-list" id="sidebar-related-posts">
+                                <!-- Populated dynamically via post.js -->
+                            </div>
+                        </div>
+
+                        <!-- Info/CTA Widget -->
+                        <div class="sidebar-widget text-center" style="background-color: var(--primary); color: white;">
+                            <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.1);">Need Dental Care?</h3>
+                            <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; margin-bottom: 24px;">Schedule an appointment with Dr. Adonis Panagidis today.</p>
+                            <a href="index.html#appointment" class="btn btn-accent" style="width: 100%;">REQUEST APPOINTMENT</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="assets/images/logo_header.png" alt="Dr. Adonis Panagidis" class="footer-logo" style="margin-bottom: 20px;">
+                <p>Providing state-of-the-art dental clinical solutions with a warm, caring, family-first approach.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/Dental-Center-Dr-Adonis-Panagidis-110588337290234/" target="_blank" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://cy.linkedin.com/in/adonis-panagidis-47b11433" target="_blank" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/dentalcentreadonispanagidis/" target="_blank" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/35799382880" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Clinical Services</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                    <li><a href="blog.html">Health Blog</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Reach Us</h4>
+                <p><i class="fa-solid fa-map-pin"></i> 15 Androkleous Str., Flat 403, 1061 Nicosia</p>
+                <p><i class="fa-solid fa-phone"></i> +357 22-452345/6</p>
+                <p><i class="fa-solid fa-envelope"></i> apanagidisdentalcenter@gmail.com</p>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Dr. Adonis Panagidis Dental Center. All rights reserved. | Registered GHS (GESY) Provider.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/post.js"></script>
+</body>
+</html>
