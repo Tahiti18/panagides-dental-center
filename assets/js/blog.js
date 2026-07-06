@@ -33,31 +33,40 @@ document.addEventListener('DOMContentLoaded', () => {
         "wisdom-teeth-what-you-need-to-know": "Oral Surgery"
     };
 
-    // Load blog posts data
-    fetch('blog-posts.json')
-        .then(res => res.json())
-        .then(data => {
-            allPosts = data;
-            
-            // Check if there is a search query in the URL (e.g. from sidebar search)
-            const urlParams = new URLSearchParams(window.location.search);
-            const q = urlParams.get('q');
-            if (q) {
-                searchQuery = q.trim();
-                if (searchInput) searchInput.value = searchQuery;
-            }
-
-            filterAndRender();
-        })
-        .catch(err => {
-            console.error("Error loading blog posts:", err);
-            postsGrid.innerHTML = `
-                <div class="text-center" style="grid-column: 1/-1; padding: 40px;">
-                    <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ef4444; margin-bottom: 15px;"></i>
-                    <p>Failed to load articles. Please refresh or try again later.</p>
-                </div>
-            `;
-        });
+    // Use local array data if available (to allow offline viewing via file:// protocol without CORS errors)
+    if (typeof BLOG_POSTS !== 'undefined') {
+        allPosts = BLOG_POSTS;
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchQuery = q.trim();
+            if (searchInput) searchInput.value = searchQuery;
+        }
+        filterAndRender();
+    } else {
+        // Fallback to fetch for web server environment
+        fetch('blog-posts.json')
+            .then(res => res.json())
+            .then(data => {
+                allPosts = data;
+                const urlParams = new URLSearchParams(window.location.search);
+                const q = urlParams.get('q');
+                if (q) {
+                    searchQuery = q.trim();
+                    if (searchInput) searchInput.value = searchQuery;
+                }
+                filterAndRender();
+            })
+            .catch(err => {
+                console.error("Error loading blog posts:", err);
+                postsGrid.innerHTML = `
+                    <div class="text-center" style="grid-column: 1/-1; padding: 40px;">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: #ef4444; margin-bottom: 15px;"></i>
+                        <p>Failed to load articles. Please refresh or try again later.</p>
+                    </div>
+                `;
+            });
+    }
 
     // 1. Filter Logic
     function filterAndRender() {

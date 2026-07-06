@@ -51,67 +51,66 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Fetch blog data
-    fetch('blog-posts.json')
-        .then(res => res.json())
-        .then(posts => {
-            const currentPost = posts.find(p => p.slug === postSlug);
-            
-            if (!currentPost) {
-                // If post not found in JSON, show error
-                mainTitle.textContent = "Article Not Found";
-                mainBody.innerHTML = `<p>Sorry, the article you are looking for does not exist or has been moved. <a href="blog.html">Go back to Blog</a>.</p>`;
-                return;
+    const processPostData = (posts) => {
+        const currentPost = posts.find(p => p.slug === postSlug);
+        
+        if (!currentPost) {
+            mainTitle.textContent = "Article Not Found";
+            mainBody.innerHTML = `<p>Sorry, the article you are looking for does not exist or has been moved. <a href="blog.html">Go back to Blog</a>.</p>`;
+            return;
+        }
+
+        const title = currentPost.title;
+        document.title = `${title} | Dr. Adonis Panagidis Dental Center`;
+        
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            metaDesc.setAttribute('content', currentPost.summary);
+        } else {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = "description";
+            metaDesc.content = currentPost.summary;
+            document.head.appendChild(metaDesc);
+        }
+
+        const cleanImgSrc = currentPost.img_src;
+        if (bannerImg) bannerImg.src = cleanImgSrc;
+        if (breadcrumbTitle) breadcrumbTitle.textContent = title;
+        if (mainTitle) mainTitle.textContent = title;
+        
+        const tag = displayTagMap[postSlug] || "Dental Care";
+        if (postTag) {
+            postTag.textContent = tag;
+            if(postSlug === "menopause-and-oral-health") {
+                postTag.style.backgroundColor = "rgba(236, 72, 153, 0.15)";
+                postTag.style.color = "#ec4899";
             }
+        }
+        if (postDate) postDate.textContent = dateMap[postSlug] || "Recent Article";
+        if (postReadTime) postReadTime.textContent = readTimeMap[postSlug] || "4 min read";
 
-            // 1. Populate metadata & headings
-            const title = currentPost.title;
-            document.title = `${title} | Dr. Adonis Panagidis Dental Center`;
-            
-            // Set dynamic meta description for SEO
-            let metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) {
-                metaDesc.setAttribute('content', currentPost.summary);
-            } else {
-                metaDesc = document.createElement('meta');
-                metaDesc.name = "description";
-                metaDesc.content = currentPost.summary;
-                document.head.appendChild(metaDesc);
-            }
+        let rawContent = currentPost.content;
+        if (mainBody) {
+            mainBody.innerHTML = rawContent;
+        }
 
-            // 2. Populate Header Banner & Breadcrumbs
-            const cleanImgSrc = currentPost.img_src;
-            
-            if (bannerImg) bannerImg.src = cleanImgSrc;
-            if (breadcrumbTitle) breadcrumbTitle.textContent = title;
-            if (mainTitle) mainTitle.textContent = title;
-            
-            // 3. Tags & Dates
-            const tag = displayTagMap[postSlug] || "Dental Care";
-            if (postTag) {
-                postTag.textContent = tag;
-                // Style tags depending on category
-                if(postSlug === "menopause-and-oral-health") postTag.style.backgroundColor = "rgba(236, 72, 153, 0.15)";
-                if(postSlug === "menopause-and-oral-health") postTag.style.color = "#ec4899";
-            }
-            if (postDate) postDate.textContent = dateMap[postSlug] || "Recent Article";
-            if (postReadTime) postReadTime.textContent = readTimeMap[postSlug] || "4 min read";
+        renderRelatedPosts(posts, postSlug);
+    };
 
-            // 4. Populate Content Body
-            let rawContent = currentPost.content;
-
-            if (mainBody) {
-                mainBody.innerHTML = rawContent;
-            }
-
-            // 5. Render Related Posts Sidebar (exclude current post)
-            renderRelatedPosts(posts, postSlug);
-        })
-        .catch(err => {
-            console.error("Error loading blog article content:", err);
-            mainTitle.textContent = "Error Loading Article";
-            mainBody.innerHTML = `<p>There was a technical issue fetching the article content. Please check your connection and <a href="javascript:location.reload()">try again</a>.</p>`;
-        });
+    if (typeof BLOG_POSTS !== 'undefined') {
+        processPostData(BLOG_POSTS);
+    } else {
+        fetch('blog-posts.json')
+            .then(res => res.json())
+            .then(posts => {
+                processPostData(posts);
+            })
+            .catch(err => {
+                console.error("Error loading blog article content:", err);
+                mainTitle.textContent = "Error Loading Article";
+                mainBody.innerHTML = `<p>There was a technical issue fetching the article content. Please check your connection and <a href="javascript:location.reload()">try again</a>.</p>`;
+            });
+    }
 
     function renderRelatedPosts(allPosts, currentSlug) {
         if (!relatedContainer) return;

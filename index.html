@@ -16,7 +16,7 @@
     
     <!-- Icons and Fonts -->
     <link rel="icon" href="assets/images/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -583,51 +583,59 @@
     </div>
 
     <!-- Scripts -->
+    <script src="assets/js/blog-posts-data.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        // Load latest blog posts onto home page from blog-posts.json
-        fetch('blog-posts.json')
-            .then(res => res.json())
-            .then(posts => {
-                const grid = document.getElementById('latest-posts-grid');
-                if(!grid) return;
+        const processHomeBlogPreviews = (posts) => {
+            const grid = document.getElementById('latest-posts-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            
+            const latest = posts.slice(0, 3);
+            latest.forEach(post => {
+                const tagMap = {
+                    "World-No-Tobacco-Day": "Oral Hygiene",
+                    "CEREC-MCXL-Premium": "Technology",
+                    "menopause-and-oral-health": "Women's Health",
+                    "the-rise-of-ai-in-dentistry": "AI & Future",
+                    "what-is-a-dental-implant": "Implants",
+                    "wisdom-teeth-what-you-need-to-know": "Surgery"
+                };
+                const tag = tagMap[post.slug] || "Dental Care";
+                const cleanImgSrc = post.img_src;
                 
-                // Show latest 3 posts
-                const latest = posts.slice(0, 3);
-                latest.forEach(post => {
-                    const tagMap = {
-                        "World-No-Tobacco-Day": "Oral Hygiene",
-                        "CEREC-MCXL-Premium": "Technology",
-                        "menopause-and-oral-health": "Women's Health",
-                        "the-rise-of-ai-in-dentistry": "AI & Future",
-                        "what-is-a-dental-implant": "Implants",
-                        "wisdom-teeth-what-you-need-to-know": "Surgery"
-                    };
-                    const tag = tagMap[post.slug] || "Dental Care";
-                    const cleanImgSrc = post.img_src;
-                    
-                    const card = document.createElement('div');
-                    card.className = 'blog-card';
-                    card.innerHTML = `
-                        <div class="blog-card-img-wrapper">
-                            <img src="${cleanImgSrc}" alt="${post.title}" class="blog-card-img">
+                const card = document.createElement('div');
+                card.className = 'blog-card';
+                card.innerHTML = `
+                    <div class="blog-card-img-wrapper">
+                        <img src="${cleanImgSrc}" alt="${post.title}" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-meta">
+                            <span class="blog-tag">${tag}</span>
+                            <span>Recent Article</span>
                         </div>
-                        <div class="blog-card-content">
-                            <div class="blog-meta">
-                                <span class="blog-tag">${tag}</span>
-                                <span>Recent Article</span>
-                            </div>
-                            <h3><a href="blog-post.html?post=${post.slug}">${post.title}</a></h3>
-                            <p class="blog-card-desc">${post.summary}</p>
-                            <a href="blog-post.html?post=${post.slug}" class="blog-readmore">
-                                READ ARTICLE <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            })
-            .catch(err => console.error("Error loading blog previews:", err));
+                        <h3><a href="blog-post.html?post=${post.slug}">${post.title}</a></h3>
+                        <p class="blog-card-desc">${post.summary}</p>
+                        <a href="blog-post.html?post=${post.slug}" class="blog-readmore">
+                            READ ARTICLE <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        if (typeof BLOG_POSTS !== 'undefined') {
+            processHomeBlogPreviews(BLOG_POSTS);
+        } else {
+            fetch('blog-posts.json')
+                .then(res => res.json())
+                .then(posts => {
+                    processHomeBlogPreviews(posts);
+                })
+                .catch(err => console.error("Error loading blog previews:", err));
+        }
     </script>
 </body>
 </html>
