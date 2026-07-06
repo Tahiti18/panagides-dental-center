@@ -135,7 +135,7 @@ img {
 }
 
 .section-blue {
-    background: linear-gradient(180deg, #f0f7f7 0%, #e0f2f1 100%); /* Calming light teal-blue gradient */
+    background: linear-gradient(135deg, #112540 0%, #0a1d37 100%); /* Premium dark navy gradient matching sticky header */
 }
 
 .text-center {
@@ -1658,4 +1658,24 @@ textarea.form-control {
     .post-main-content {
         padding: 30px 20px;
     }
+}
+
+/* Overrides for elements inside the dark blue sections (Services and Blog Preview) */
+.section-blue .section-title {
+    color: #ffffff;
+}
+
+.section-blue .section-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.section-blue .btn-outline {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.section-blue .btn-outline:hover {
+    background-color: #ffffff;
+    color: var(--primary);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
 }
