@@ -1,9 +1,12 @@
 ---
+import Icon from './Icon.astro';
 import { implantSteps, tr, type Lang } from '../data/site';
+import { ui } from '../data/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
+const t = ui(lang);
 ---
-<div class="plan-wrap">
+<div class="plan-wrap" data-plan>
 <span class="plan-line" aria-hidden="true"><span></span></span>
 <ol class="plan">
   {implantSteps.map((s, i) => (
@@ -14,4 +17,9 @@ const { lang } = Astro.props;
     </li>
   ))}
 </ol>
+<div class="rail-ctrl plan-ctrl" hidden>
+  <button type="button" data-toggle data-pause={t.pause} data-play={t.play} aria-pressed="false" style="width:auto;padding:0 16px;border-radius:999px;gap:8px;display:inline-flex;align-items:center">
+    <Icon name="pause" class="i-pause" /><Icon name="play" class="i-play" /><span data-label>{t.pause}</span>
+  </button>
+</div>
 </div>
