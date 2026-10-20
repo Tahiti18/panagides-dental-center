@@ -76,6 +76,10 @@ em { font-style: italic; }
 .section--white { background: var(--white); }
 .section--sand { background: var(--paper-2); }
 .section--ink { background: var(--ink); color: var(--on-ink); }
+/* Dark content sits on the page as a rounded panel; the footer is the only full-width dark band */
+.section--panel { padding-block: clamp(28px, 4vw, 56px); }
+.ink-panel { border-radius: 28px; padding: clamp(36px, 5.5vw, 80px) clamp(22px, 5vw, 72px); box-shadow: 0 34px 70px -48px rgba(27, 39, 51, 0.55); }
+@media (max-width: 640px) { .ink-panel { border-radius: 20px; } }
 .section--ink h2, .section--ink h3 { color: var(--white); }
 
 /* Eyebrow with the "measured line" motif: a short rule with three ticks, like a scale bar */

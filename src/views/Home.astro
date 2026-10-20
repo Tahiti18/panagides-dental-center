@@ -67,8 +67,8 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
 
   <Reviews lang={lang} eyebrow={h.reviewsEyebrow} title={h.reviewsTitle} lead={h.reviewsLead} />
 
-  <section class="section section--ink" aria-labelledby="cerec-h">
-    <div class="wrap">
+  <section class="section section--panel" aria-labelledby="cerec-h">
+    <div class="wrap"><div class="section--ink ink-panel">
       <div class="head head--split">
         <div>
           <p class="eyebrow rv">{h.cerecEyebrow}</p>
@@ -80,10 +80,10 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
         </div>
       </div>
       <CerecFlow lang={lang} />
-    </div>
+    </div></div>
   </section>
 
-  <section class="section" aria-labelledby="treat-h">
+  <section class="section section--white" aria-labelledby="treat-h">
     <div class="wrap">
       <div class="head head--split">
         <div>
