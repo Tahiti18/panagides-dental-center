@@ -34,17 +34,22 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
           <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
         </div>
         <ul class="hero-proof rv" style="--d:4">
-          <li><Stars label={lang === 'el' ? `${clinic.googleRating} από 5 στο Google` : `${clinic.googleRating} out of 5 on Google`} /><span class="rating">{clinic.googleRating}</span> {t.google}</li>
           <li><img src="/img/gesy.png" alt="" width="141" height="81" />{t.gesy}</li>
           {h.proofItm.map((p) => <li>{p}</li>)}
         </ul>
       </div>
       <div class="hero-media rv" style="--d:2">
         <div class="frame">
-          <Pic k="hero-model" eager sizes="(min-width: 960px) 52vw, 100vw" alt={lang === 'el' ? 'Εκμαγείο δοντιών με χαραγμένο το όνομα Adonis Panagidis, μέσα από μεγεθυντικά γυαλιά' : 'A dental model engraved with the name Adonis Panagidis, seen through magnifying loupes'} />
+          <Pic k="hero-model" eager sizes="(min-width: 960px) 52vw, 100vw" alt={lang === 'el' ? 'Εκμαγείο δοντιών, μέσα από μεγεθυντικά γυαλιά' : 'A dental model seen through magnifying loupes'} />
           <span class="scan" aria-hidden="true"></span>
         </div>
-        <p class="hero-badge"><Icon name="layers" />{h.heroCard}</p>
+        <a class="hero-badge hero-rating" href={clinic.googleUrl} target="_blank" rel="noopener">
+          <span class="hero-rating-num" aria-hidden="true">{clinic.googleRating}</span>
+          <span class="hero-rating-meta">
+            <Stars label={lang === 'el' ? `${clinic.googleRating} από 5` : `${clinic.googleRating} out of 5`} delay={700} step={170} />
+            <span>{t.google}</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
