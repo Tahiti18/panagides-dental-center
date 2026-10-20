@@ -27,3 +27,6 @@ __pycache__/
 
 # Archives
 *.zip
+dist/
+.astro/
+.claude/skills/impeccable/scripts/bin/
