@@ -178,15 +178,16 @@ body.no-scroll { overflow: hidden; }
 .hero-proof li { display: inline-flex; align-items: center; gap: 8px; }
 .hero-proof img { height: 26px; width: auto; }
 .hero-media { position: relative; }
-.hero-media .frame { aspect-ratio: 4 / 3.2; border-radius: 20px; box-shadow: 0 40px 80px -48px rgba(27, 39, 51, 0.55); }
+.hero-media .frame { aspect-ratio: 4 / 3.2; border-radius: 20px; border: 1px solid rgba(0, 161, 195, 0.45); box-shadow: 0 2px 6px rgba(27, 39, 51, 0.06), 0 34px 64px -30px rgba(27, 39, 51, 0.38); }
 .hero-media .frame img { object-position: 60% 50%; transform: scale(1.04); }
-.hero-badge { position: absolute; right: -12px; bottom: -22px; display: flex; align-items: center; gap: 14px; max-width: 320px; padding: 14px 18px; background: var(--white); border-radius: 14px; box-shadow: 0 20px 40px -24px rgba(27, 39, 51, 0.45); font-size: 0.86rem; line-height: 1.4; color: var(--text); }
+/* sits on the photo's bottom-right corner, reaching out into the page margin (never past it) */
+.hero-badge { position: absolute; right: calc(-1 * (var(--gutter) - 12px)); bottom: -28px; display: flex; align-items: center; gap: 14px; max-width: 320px; padding: 14px 18px; background: var(--white); border-radius: 14px; box-shadow: 0 20px 40px -24px rgba(27, 39, 51, 0.45); font-size: 0.86rem; line-height: 1.4; color: var(--text); }
 .hero-rating { width: fit-content; gap: 12px; padding: 12px 18px 12px 16px; background: var(--paper); border: 1px solid rgba(0, 161, 195, 0.45); text-decoration: none; color: var(--text); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
 .hero-rating:hover { transform: translateY(-2px); box-shadow: 0 24px 44px -24px rgba(27, 39, 51, 0.5); }
 .hero-rating-num { font: 600 1.85rem/1 var(--sans); font-variant-numeric: lining-nums; color: var(--ink); letter-spacing: -0.02em; }
 .hero-rating-meta { display: grid; gap: 4px; font-size: 0.86rem; color: var(--muted); }
 .hero-rating .stars svg { width: 18px; height: 18px; }
-@media (max-width: 700px) { .hero-badge { position: relative; right: auto; bottom: auto; margin: -28px 12px 0 auto; } }
+@media (max-width: 700px) { .hero-badge { position: relative; right: auto; bottom: auto; margin: -28px calc(-1 * (var(--gutter) - 8px)) 0 auto; } }
 /* one-time "scan" sweep across the hero photo, echoing the intraoral scanner */
 .scan { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 0%, rgba(111, 211, 234, 0) 40%, rgba(111, 211, 234, 0.28) 49%, rgba(255, 255, 255, 0.55) 50%, rgba(111, 211, 234, 0.28) 51%, rgba(111, 211, 234, 0) 60%, transparent 100%); background-size: 100% 250%; background-position: 0 100%; opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
