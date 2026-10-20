@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Pic from '../components/Pic.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import Closing from '../components/Closing.astro';
+import { clinic, tr, type Lang } from '../data/site';
+import { bySlug } from '../data/treatments';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = ui(lang);
+const x = bySlug(slug);
+const name = tr(lang, x.name);
+const faq = x.faq.map((f) => ({ q: tr(lang, f.q), a: tr(lang, f.a) }));
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const title = lang === 'el' ? `${name} στη Λευκωσία · Δρ Άδωνις Παναγίδης` : `${name} in Nicosia · Dr Adonis Panagidis`;
+---
+<Layout lang={lang} path={`treatments/${slug}/`} current="treatments" title={title} description={tr(lang, x.summary)} schema={[faqSchema]}>
+  <PageHero lang={lang} eyebrow={t.nav.treatments} title={name} lead={tr(lang, x.summary)} crumbs={[{ label: t.nav.treatments, path: 'treatments/' }, { label: name }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap t-layout">
+      <div>
+        {x.image && <div class="frame zoom rv" style="aspect-ratio:16/9;margin-bottom:clamp(28px,4vw,44px)"><Pic k={x.image} eager sizes="(min-width: 960px) 60vw, 100vw" alt="" /></div>}
+        <div class="t-block">
+          {x.intro.map((p, i) => <p class:list={['rv', i === 0 && 'lead']} style={`--d:${i};${i === 0 ? 'color:var(--ink)' : ''}`}>{tr(lang, p)}</p>)}
+        </div>
+        <div class="t-block">
+          <h2 class="rv">{t.treatment.includes}</h2>
+          <ul class="checks rv" style="--d:1">{x.includes.map((i) => <li>{tr(lang, i)}</li>)}</ul>
+        </div>
+        {x.steps && (
+          <div class="t-block">
+            <h2 class="rv">{t.treatment.how}</h2>
+            <ol class="steps">{x.steps.map((s, i) => <li class="rv" style={`--d:${i}`}><h3>{tr(lang, s.title)}</h3><p>{tr(lang, s.text)}</p></li>)}</ol>
+          </div>
+        )}
+        <div class="t-block">
+          <h2 class="rv">{t.treatment.faq}</h2>
+          <div class="rv" style="--d:1"><Faq items={faq} /></div>
+        </div>
+        <div class="t-block">
+          <h2 class="rv">{t.treatment.related}</h2>
+          <ul class="tlist">
+            {x.related.map((r) => { const y = bySlug(r); return (
+              <li><a href={href(lang, `treatments/${r}/`)}><h3>{tr(lang, y.name)}</h3><span class="go" aria-hidden="true"><Icon name="arrow" /></span><p>{tr(lang, y.summary)}</p></a></li>
+            ); })}
+          </ul>
+        </div>
+      </div>
+      <aside class="t-aside rv" style="--d:2" aria-label={t.treatment.ready}>
+        <h2>{t.treatment.ready}</h2>
+        <p class="muted" style="margin:0">{t.home_.closingText}</p>
+        <a class="btn btn--primary" href={href(lang, 'contact/')}>{t.book}<Icon name="arrow" class="arr" /></a>
+        <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
+        <a class="btn btn--ghost" href={clinic.whatsapp.href} target="_blank" rel="noopener"><Icon name="whatsapp" />{t.whatsapp}<span class="sr-only"> {t.external}</span></a>
+      </aside>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

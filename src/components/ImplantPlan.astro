@@ -1,0 +1,17 @@
+---
+import { implantSteps, tr, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<div class="plan-wrap">
+<span class="plan-line" aria-hidden="true"><span></span></span>
+<ol class="plan">
+  {implantSteps.map((s, i) => (
+    <li class="rv" style={`--d:${i}`}>
+      <span class="num">0{i + 1}</span>
+      <h3>{tr(lang, s.title)}</h3>
+      <p>{tr(lang, s.text)}</p>
+    </li>
+  ))}
+</ol>
+</div>

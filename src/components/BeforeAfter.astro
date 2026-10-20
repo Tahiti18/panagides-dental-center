@@ -1,0 +1,18 @@
+---
+import { tr, type Lang } from '../data/site';
+import type { cases } from '../data/cases';
+interface Props { lang: Lang; item: (typeof cases)[number] }
+const { lang, item } = Astro.props;
+const L = lang === 'el' ? { b: 'Πριν', a: 'Μετά', s: 'Σύγκριση πριν και μετά' } : { b: 'Before', a: 'After', s: 'Compare before and after' };
+---
+<figure class="ba" data-ba style={`--ratio:${item.w} / ${item.h}`}>
+  <div class="ba-stage">
+    <img src={`/img/cases/${item.key}-after.webp`} width={item.w} height={item.h} alt={`${L.a}: ${tr(lang, item.title)}`} loading="lazy" />
+    <div class="ba-before"><img src={`/img/cases/${item.key}-before.webp`} width={item.w} height={item.h} alt={`${L.b}: ${tr(lang, item.title)}`} loading="lazy" /></div>
+    <span class="ba-tag ba-tag--b" aria-hidden="true">{L.b}</span>
+    <span class="ba-tag ba-tag--a" aria-hidden="true">{L.a}</span>
+    <span class="ba-handle" aria-hidden="true"></span>
+    <input type="range" min="0" max="100" value="50" aria-label={`${L.s}: ${tr(lang, item.title)}`} />
+  </div>
+  <figcaption><b>{tr(lang, item.title)}</b><span>{tr(lang, item.text)}</span></figcaption>
+</figure>

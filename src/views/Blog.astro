@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Closing from '../components/Closing.astro';
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+import blog from '../data/blog.json';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const b = t.blogPage;
+---
+<Layout lang={lang} path="blog/" current="blog" title={b.metaTitle} description={b.metaDescription}>
+  <PageHero lang={lang} eyebrow={b.eyebrow} title={b.title} lead={[b.lead, b.greekNote].filter(Boolean).join(' ')} crumbs={[{ label: t.nav.blog }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <ul class="cards cards--3">
+        {blog.map((p, i) => (
+          <li class="rv" style={`--d:${i % 3}`}>
+            <a class="card" href={`/blog/${p.slug}/`} lang={p.lang}>
+              {p.image && <div class="frame"><img src={p.image.src} width={p.image.w} height={p.image.h} alt="" loading="lazy" /></div>}
+              <div class="card-body"><h2 class="h3" style="font-size:1.22rem">{p.title}</h2><p>{p.summary}</p><span class="more" lang={lang}>{t.readMore} →</span></div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

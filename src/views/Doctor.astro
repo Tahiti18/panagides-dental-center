@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Pic from '../components/Pic.astro';
+import Closing from '../components/Closing.astro';
+import { timeline, tr, type Lang } from '../data/site';
+import { ui } from '../data/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const d = t.doctor;
+const person = { '@context': 'https://schema.org', '@type': 'Dentist', name: 'Dr Adonis Panagidis', jobTitle: 'Dental Surgeon', alumniOf: 'National and Kapodistrian University of Athens', memberOf: 'International Team for Implantology (ITI)' };
+---
+<Layout lang={lang} path="dr-adonis-panagidis/" current="doctor" title={d.metaTitle} description={d.metaDescription} schema={[person]}>
+  <PageHero lang={lang} eyebrow={d.eyebrow} title={d.title} lead={d.lead} crumbs={[{ label: t.nav.doctor }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap doc">
+      <div class="portrait rv"><div class="frame"><Pic k="portrait" eager sizes="360px" alt={tr(lang, { en: 'Dr Adonis Panagidis', el: 'Ο Δρ Άδωνις Παναγίδης' })} /></div></div>
+      <div>
+        <p class="role rv">{d.role}</p>
+        <p class="rv" style="--d:1">{d.p1}</p>
+        <p class="rv" style="--d:2">{d.p2}</p>
+        <p class="rv muted" style="--d:3">{d.p3}</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--white" aria-labelledby="tl-h">
+    <div class="wrap" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:start">
+      <div style="position:sticky;top:calc(var(--header-h) + 32px)">
+        <p class="eyebrow rv">{d.eyebrow}</p>
+        <h2 id="tl-h" class="rv" style="--d:1">{d.timelineTitle}</h2>
+      </div>
+      <ol class="tl">
+        {timeline.map((x, i) => (
+          <li class="rv" style={`--d:${i % 2}`}>
+            <span class="yr">{x.year}</span>
+            <h3>{tr(lang, x.title)}</h3>
+            <p>{tr(lang, x.text)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="ap-h">
+    <div class="wrap">
+      <div class="head"><h2 id="ap-h" class="rv">{d.approachTitle}</h2></div>
+      <div class="tech-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))">
+        {d.approach.map((a, i) => <div class="tech-card rv" style={`--d:${i}`}><h3>{a.t}</h3><p>{a.d}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

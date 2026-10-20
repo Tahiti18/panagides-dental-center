@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+import Stars from './Stars.astro';
+import { clinic, reviews, type Lang } from '../data/site';
+import { ui } from '../data/ui';
+interface Props { lang: Lang; title: string; eyebrow: string; lead?: string }
+const { lang, title, eyebrow, lead } = Astro.props;
+const t = ui(lang);
+const starLabel = lang === 'el' ? '5 από 5 αστέρια' : '5 out of 5 stars';
+---
+<section class="section section--white" aria-labelledby="reviews-h" data-rail>
+  <div class="wrap">
+    <div class="reviews-top">
+      <div>
+        <p class="eyebrow rv">{eyebrow}</p>
+        <h2 id="reviews-h" class="rv" style="--d:1">{title}</h2>
+        {lead && <p class="lead rv" style="--d:2;margin-top:12px">{lead}</p>}
+      </div>
+      <div class="score rv" style="--d:2">
+        <span class="score-num">{clinic.googleRating}</span>
+        <span class="score-meta">
+          <Stars label={lang === 'el' ? `Βαθμολογία ${clinic.googleRating} από 5 στο Google` : `Rated ${clinic.googleRating} out of 5 on Google`} />
+          <span>{t.google} · <a class="link" style="border:0;padding:0" href={clinic.googleUrl} target="_blank" rel="noopener">{t.home_.reviewsCta}<span class="sr-only"> {t.external}</span></a></span>
+        </span>
+      </div>
+    </div>
+    <ul class="rail" aria-label={title} tabindex="0">
+      {reviews.map((r, i) => (
+        <li>
+          <figure class="review" style="margin:0">
+            {r.source === 'google' ? <Stars label={starLabel} delay={(i % 4) * 120} /> : <Icon name="quote" class="qmark" />}
+            <blockquote lang="en">“{r.text}”</blockquote>
+            <footer><b>{r.name}</b><span>{r.source === 'google' ? t.googleReview : t.clinicTestimonial}</span></footer>
+          </figure>
+        </li>
+      ))}
+    </ul>
+    <div class="rail-ctrl" style="margin-top:8px">
+      <button type="button" data-prev aria-label={t.prev}><Icon name="arrow-left" /></button>
+      <button type="button" data-next aria-label={t.next}><Icon name="arrow" /></button>
+      <button type="button" data-toggle data-pause={t.pause} data-play={t.play} aria-pressed="false" style="width:auto;padding:0 16px;border-radius:999px;gap:8px;display:inline-flex;align-items:center">
+        <Icon name="pause" class="i-pause" /><Icon name="play" class="i-play" /><span data-label>{t.pause}</span>
+      </button>
+    </div>
+  </div>
+</section>

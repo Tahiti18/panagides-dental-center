@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+interface Props { lang: Lang; eyebrow: string; title: string; lead?: string; crumbs?: { label: string; path?: string }[] }
+const { lang, eyebrow, title, lead, crumbs = [] } = Astro.props;
+const t = ui(lang);
+---
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label={t.breadcrumb}>
+      <ol>
+        <li><a href={href(lang)}>{t.home}</a></li>
+        {crumbs.map((c) => <li>{c.path ? <a href={href(lang, c.path)}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+      </ol>
+    </nav>
+    <p class="eyebrow rv">{eyebrow}</p>
+    <h1 class="rv" style="--d:1">{title}</h1>
+    {lead && <p class="lead rv" style="--d:2">{lead}</p>}
+    <slot />
+  </div>
+</section>

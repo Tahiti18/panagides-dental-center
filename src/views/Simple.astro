@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+interface Props { lang: Lang; kind: 'privacy' | 'thanks' | '404' }
+const { lang, kind } = Astro.props;
+const t = ui(lang);
+const page = kind === 'privacy'
+  ? { path: 'privacy/', title: t.privacyPage.title, meta: t.privacyPage.metaTitle, body: t.privacyPage.body, eyebrow: t.privacy }
+  : kind === 'thanks'
+  ? { path: 'thanks/', title: t.contactPage.thanksTitle, meta: t.contactPage.thanksTitle, body: [t.contactPage.thanksText], eyebrow: t.nav.contact }
+  : { path: '404/', title: t.notFound.title, meta: t.notFound.title, body: [t.notFound.text], eyebrow: '404' };
+---
+<Layout lang={lang} path={page.path} title={page.meta}>
+  <PageHero lang={lang} eyebrow={page.eyebrow} title={page.title} crumbs={[{ label: page.title }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap narrow">
+      {page.body.map((p) => <p>{p}</p>)}
+      {kind !== 'privacy' && <a class="btn btn--primary" href={href(lang)}>{t.notFound.back}<Icon name="arrow" class="arr" /></a>}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Pic from '../components/Pic.astro';
+import Icon from '../components/Icon.astro';
+import Stars from '../components/Stars.astro';
+import Reviews from '../components/Reviews.astro';
+import CerecFlow from '../components/CerecFlow.astro';
+import ImplantPlan from '../components/ImplantPlan.astro';
+import Faq from '../components/Faq.astro';
+import Closing from '../components/Closing.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import { clinic, tr, type Lang } from '../data/site';
+import { treatments, concerns, bySlug } from '../data/treatments';
+import { cases } from '../data/cases';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+import blog from '../data/blog.json';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const h = t.home_;
+const latest = ['cerec-mcxl-premium', 'what-is-a-dental-implant', 'wisdom-teeth-what-you-need-to-know'].map((s) => blog.find((p) => p.slug === s)!);
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: h.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Layout lang={lang} path="" title={h.metaTitle} description={h.metaDescription} schema={[faqSchema]}>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow rv">{h.eyebrow}</p>
+        <h1 class="rv" style="--d:1"><span class="l">{h.h1a}</span> <span class="l"><em>{h.h1b}</em></span> <span class="l">{h.h1c}</span></h1>
+        <p class="lead rv" style="--d:2">{h.lead}</p>
+        <div class="btns rv" style="--d:3" data-hero-cta>
+          <a class="btn btn--primary" href={href(lang, 'contact/')}>{t.book}<Icon name="arrow" class="arr" /></a>
+          <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
+        </div>
+        <ul class="hero-proof rv" style="--d:4">
+          <li><Stars label={lang === 'el' ? `${clinic.googleRating} από 5 στο Google` : `${clinic.googleRating} out of 5 on Google`} /><span class="rating">{clinic.googleRating}</span> {t.google}</li>
+          <li><img src="/img/gesy.png" alt="" width="141" height="81" />{t.gesy}</li>
+          {h.proofItm.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+      <div class="hero-media rv" style="--d:2">
+        <div class="frame">
+          <Pic k="hero-model" eager sizes="(min-width: 960px) 52vw, 100vw" alt={lang === 'el' ? 'Εκμαγείο δοντιών με χαραγμένο το όνομα Adonis Panagidis, μέσα από μεγεθυντικά γυαλιά' : 'A dental model engraved with the name Adonis Panagidis, seen through magnifying loupes'} />
+          <span class="scan" aria-hidden="true"></span>
+        </div>
+        <p class="hero-badge"><Icon name="layers" />{h.heroCard}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="concerns-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow rv">{h.concernsEyebrow}</p>
+        <h2 id="concerns-h" class="rv" style="--d:1">{h.concernsTitle}</h2>
+      </div>
+      <ul class="concerns">
+        {concerns.map((c, i) => (
+          <li class="rv" style={`--d:${i % 3}`}>
+            <a href={href(lang, `treatments/${c.slug}/`)}>{tr(lang, c.q)}<span class="go" aria-hidden="true"><Icon name="arrow" /></span><span class="sr-only"> · {tr(lang, bySlug(c.slug).name)}</span></a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Reviews lang={lang} eyebrow={h.reviewsEyebrow} title={h.reviewsTitle} lead={h.reviewsLead} />
+
+  <section class="section section--ink" aria-labelledby="cerec-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <div>
+          <p class="eyebrow rv">{h.cerecEyebrow}</p>
+          <h2 id="cerec-h" class="rv" style="--d:1">{h.cerecTitle}</h2>
+        </div>
+        <div class="rv" style="--d:2">
+          <p class="lead">{h.cerecLead}</p>
+          <a class="link" href={href(lang, 'technology/')}>{h.cerecCta}<Icon name="arrow" class="arr" style="width:16px;height:16px" /></a>
+        </div>
+      </div>
+      <CerecFlow lang={lang} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="treat-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <div>
+          <p class="eyebrow rv">{h.treatEyebrow}</p>
+          <h2 id="treat-h" class="rv" style="--d:1">{h.treatTitle}</h2>
+        </div>
+        <p class="lead rv" style="--d:2">{h.treatLead}</p>
+      </div>
+      <ul class="tlist">
+        {treatments.map((x, i) => (
+          <li class="rv" style={`--d:${i % 3}`}>
+            <a href={href(lang, `treatments/${x.slug}/`)}>
+              <h3>{tr(lang, x.name)}</h3>
+              <span class="go" aria-hidden="true"><Icon name="arrow" /></span>
+              <p>{tr(lang, x.summary)}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {cases.length > 0 && (
+    <section class="section section--white" aria-labelledby="cases-h">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow rv">{lang === 'el' ? 'Αποτελέσματα' : 'Results'}</p>
+          <h2 id="cases-h" class="rv" style="--d:1">{lang === 'el' ? 'Πραγματικές περιπτώσεις του ιατρείου.' : 'Real cases from the clinic.'}</h2>
+        </div>
+        <div class:list={['cases', cases.length > 1 && 'cases--2']}>{cases.map((c) => <BeforeAfter lang={lang} item={c} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section--sand" aria-labelledby="implant-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <div>
+          <p class="eyebrow rv">{h.implantEyebrow}</p>
+          <h2 id="implant-h" class="rv" style="--d:1">{h.implantTitle}</h2>
+        </div>
+        <div class="rv" style="--d:2">
+          <p class="lead">{h.implantLead}</p>
+          <a class="link" href={href(lang, 'treatments/dental-implants/')}>{h.implantCta}<Icon name="arrow" style="width:16px;height:16px" /></a>
+        </div>
+      </div>
+      <ImplantPlan lang={lang} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="doc-h">
+    <div class="wrap doc">
+      <div class="portrait rv">
+        <div class="frame"><Pic k="portrait" alt={lang === 'el' ? 'Ο Δρ Άδωνις Παναγίδης' : 'Dr Adonis Panagidis'} sizes="360px" /></div>
+      </div>
+      <div>
+        <p class="eyebrow rv">{h.doctorEyebrow}</p>
+        <h2 id="doc-h" class="rv" style="--d:1">{h.doctorTitle}</h2>
+        <p class="role rv" style="--d:1">{h.doctorRole}</p>
+        <p class="rv" style="--d:2;max-width:62ch">{h.doctorText}</p>
+        <a class="btn btn--ghost rv" style="--d:3" href={href(lang, 'dr-adonis-panagidis/')}>{h.doctorCta}<Icon name="arrow" class="arr" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="clinic-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <div>
+          <p class="eyebrow rv">{h.clinicEyebrow}</p>
+          <h2 id="clinic-h" class="rv" style="--d:1">{h.clinicTitle}</h2>
+        </div>
+        <div class="rv" style="--d:2">
+          <p class="lead">{h.clinicLead}</p>
+          <a class="link" href={href(lang, 'the-clinic/')}>{h.clinicCta}<Icon name="arrow" style="width:16px;height:16px" /></a>
+        </div>
+      </div>
+      <div class="mosaic">
+        <figure class="m1 rv"><div class="frame"><Pic k="reception" parallax={0.05} sizes="(min-width: 900px) 58vw, 100vw" alt={t.clinicPage.captions.reception} /></div><figcaption class="caption">{t.clinicPage.captions.reception}</figcaption></figure>
+        <figure class="m2 rv" style="--d:1"><div class="frame"><Pic k="office" parallax={0.05} sizes="(min-width: 900px) 42vw, 100vw" alt={t.clinicPage.captions.office} /></div><figcaption class="caption">{t.clinicPage.captions.office}</figcaption></figure>
+        <figure class="m3 rv"><div class="frame zoom"><Pic k="room-1" sizes="(min-width: 900px) 33vw, 50vw" alt={t.clinicPage.captions.room1} /></div><figcaption class="caption">{t.clinicPage.captions.room1}</figcaption></figure>
+        <figure class="m4 rv" style="--d:1"><div class="frame zoom"><Pic k="room-2" sizes="(min-width: 900px) 33vw, 50vw" alt={t.clinicPage.captions.room2} /></div><figcaption class="caption">{t.clinicPage.captions.room2}</figcaption></figure>
+        <figure class="m5 rv" style="--d:2"><div class="frame zoom"><Pic k="unit" sizes="(min-width: 900px) 33vw, 50vw" alt={t.clinicPage.captions.unit} /></div><figcaption class="caption">{t.clinicPage.captions.unit}</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="blog-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <div>
+          <p class="eyebrow rv">{h.blogEyebrow}</p>
+          <h2 id="blog-h" class="rv" style="--d:1">{h.blogTitle}</h2>
+        </div>
+        <a class="link rv" style="--d:2;justify-self:start" href={href(lang, 'blog/')}>{h.blogCta}<Icon name="arrow" style="width:16px;height:16px" /></a>
+      </div>
+      <ul class="cards cards--3">
+        {latest.map((p, i) => (
+          <li class="rv" style={`--d:${i}`}>
+            <a class="card" href={`/blog/${p.slug}/`} lang={p.lang}>
+              {p.image && <div class="frame"><img src={p.image.src} width={p.image.w} height={p.image.h} alt="" loading="lazy" /></div>}
+              <div class="card-body"><h3>{p.title}</h3><p>{p.summary}</p><span class="more">{t.readMore} →</span></div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="head head--split" style="align-items:start">
+        <div>
+          <p class="eyebrow rv">{h.faqEyebrow}</p>
+          <h2 id="faq-h" class="rv" style="--d:1">{h.faqTitle}</h2>
+        </div>
+        <div class="rv" style="--d:2"><Faq items={h.faq} /></div>
+      </div>
+    </div>
+  </section>
+
+  <Closing lang={lang} />
+</Layout>

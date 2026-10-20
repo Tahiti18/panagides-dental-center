@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Pic from '../components/Pic.astro';
+import CerecFlow from '../components/CerecFlow.astro';
+import ImplantPlan from '../components/ImplantPlan.astro';
+import Closing from '../components/Closing.astro';
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const x = t.tech;
+const rows = [
+  { k: 'cerec-unit', title: x.cerecTitle, what: x.cerecWhat, for: x.cerecFor, alt: lang === 'el' ? 'Η μονάδα κατασκευής CEREC MC XL' : 'The CEREC MC XL milling unit' },
+  { k: 'scanner', title: x.scannerTitle, what: x.scannerWhat, for: x.scannerFor, alt: lang === 'el' ? 'Ο ενδοστοματικός σαρωτής 3Shape του ιατρείου με οθόνη ψηφιακού σχεδιασμού' : 'The clinic’s 3Shape intraoral scanner with a digital planning screen' },
+  { k: 'room-2', title: x.microTitle, what: x.microWhat, for: x.microFor, alt: lang === 'el' ? 'Το δεύτερο θεραπευτήριο με το χειρουργικό μικροσκόπιο' : 'The second treatment room with the operating microscope' },
+];
+---
+<Layout lang={lang} path="technology/" current="technology" title={x.metaTitle} description={x.metaDescription}>
+  <PageHero lang={lang} eyebrow={x.eyebrow} title={x.title} lead={x.lead} crumbs={[{ label: t.nav.technology }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap tech">
+      {rows.map((r) => (
+        <div class="tech-row">
+          <div class="tech-media rv"><div class="frame zoom"><Pic k={r.k} sizes="(min-width: 900px) 50vw, 100vw" alt={r.alt} /></div></div>
+          <div class="tech-copy">
+            <h2 class="rv" style="font-size:clamp(1.6rem,1.35rem + .9vw,2.1rem);margin-bottom:14px">{r.title}</h2>
+            <p class="rv" style="--d:1">{r.what}</p>
+            <p class="for rv" style="--d:2">{r.for}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section class="section section--ink" aria-labelledby="flow-h">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow rv">CEREC</p><h2 id="flow-h" class="rv" style="--d:1">{x.flowTitle}</h2></div>
+      <CerecFlow lang={lang} />
+    </div>
+  </section>
+  <section class="section section--sand" aria-labelledby="guided-h">
+    <div class="wrap">
+      <div class="head head--split">
+        <h2 id="guided-h" class="rv">{x.guidedTitle}</h2>
+        <div class="rv" style="--d:1"><p class="lead">{x.guidedWhat}</p><p class="lead" style="color:var(--ink);margin:0">{x.guidedFor}</p></div>
+      </div>
+      <ImplantPlan lang={lang} />
+    </div>
+  </section>
+  <section class="section" aria-labelledby="xr-h">
+    <div class="wrap narrow">
+      <h2 id="xr-h" class="rv">{x.xrayTitle}</h2>
+      <p class="lead rv" style="--d:1;margin-top:14px">{x.xrayWhat}</p>
+      <p class="rv" style="--d:2">{x.xrayFor}</p>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>
