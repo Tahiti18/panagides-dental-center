@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Pic from '../components/Pic.astro';
+import Closing from '../components/Closing.astro';
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const c = t.clinicPage;
+const tiles = [
+  { k: 'reception', cap: c.captions.reception, cls: 'm1', p: 0.05 },
+  { k: 'office', cap: c.captions.office, cls: 'm2', p: 0.05 },
+  { k: 'room-1', cap: c.captions.room1, cls: 'm3' },
+  { k: 'room-2', cap: c.captions.room2, cls: 'm4' },
+  { k: 'unit', cap: c.captions.unit, cls: 'm5' },
+];
+const tiles2 = [
+  { k: 'scanner', cap: c.captions.scanner, cls: 'm1', p: 0.05 },
+  { k: 'restorations', cap: c.captions.restorations, cls: 'm2', p: 0.05 },
+];
+---
+<Layout lang={lang} path="the-clinic/" current="clinic" title={c.metaTitle} description={c.metaDescription}>
+  <PageHero lang={lang} eyebrow={c.eyebrow} title={c.title} lead={c.lead} crumbs={[{ label: t.nav.clinic }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="mosaic">
+        {tiles.map((x, i) => <figure class:list={[x.cls, 'rv']} style={`--d:${i % 3}`}><div class:list={['frame', !x.p && 'zoom']}><Pic k={x.k} parallax={x.p} eager={i < 2} sizes="(min-width: 900px) 50vw, 100vw" alt={x.cap} /></div><figcaption class="caption">{x.cap}</figcaption></figure>)}
+      </div>
+      <div class="mosaic" style="margin-top:18px">
+        {tiles2.map((x, i) => <figure class:list={[x.cls, 'rv']} style={`--d:${i}`}><div class="frame"><Pic k={x.k} parallax={x.p} sizes="(min-width: 900px) 50vw, 100vw" alt={x.cap} /></div><figcaption class="caption">{x.cap}</figcaption></figure>)}
+      </div>
+    </div>
+  </section>
+  <section class="section section--white" aria-labelledby="acc-h">
+    <div class="wrap narrow">
+      <h2 id="acc-h" class="rv">{c.accessTitle}</h2>
+      <p class="lead rv" style="--d:1;margin-top:14px">{c.access}</p>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

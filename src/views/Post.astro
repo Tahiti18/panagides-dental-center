@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Closing from '../components/Closing.astro';
+import type { Lang } from '../data/site';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+import blog from '../data/blog.json';
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const t = ui(lang);
+const p = blog.find((x) => x.slug === slug)!;
+const more = blog.filter((x) => x.slug !== slug).slice(0, 3);
+---
+<Layout lang={lang} path={`blog/${slug}/`} altPath="blog/" current="blog" title={`${p.title} · ${lang === 'el' ? 'Δρ Άδωνις Παναγίδης' : 'Dr Adonis Panagidis'}`} description={p.summary}>
+  <PageHero lang={lang} eyebrow={t.blogPage.eyebrow} title={p.title} crumbs={[{ label: t.nav.blog, path: 'blog/' }, { label: p.title }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap narrow">
+      {p.image && <div class="frame article-hero"><img src={p.image.src} width={p.image.w} height={p.image.h} alt="" /></div>}
+      <article class="article" lang={p.lang} set:html={p.html} />
+      <p style="margin-top:40px"><a class="link" href={href(lang, 'blog/')}>← {t.blogPage.back}</a></p>
+    </div>
+  </section>
+  <section class="section section--white" aria-labelledby="more-h">
+    <div class="wrap">
+      <h2 id="more-h" class="rv" style="margin-bottom:28px">{t.home_.blogTitle}</h2>
+      <ul class="cards cards--3">
+        {more.map((x) => <li><a class="card" href={`/blog/${x.slug}/`} lang={x.lang}>{x.image && <div class="frame"><img src={x.image.src} width={x.image.w} height={x.image.h} alt="" loading="lazy" /></div>}<div class="card-body"><h3>{x.title}</h3><span class="more" lang={lang}>{t.readMore} →</span></div></a></li>)}
+      </ul>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

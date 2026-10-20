@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+interface Props { n?: number; label: string; delay?: number }
+const { n = 5, label, delay = 0 } = Astro.props;
+---
+<span class="stars" role="img" aria-label={label} data-stars style={`--d:${delay}ms`}>
+  {Array.from({ length: n }, (_, i) => <span style={`display:contents;--i:${i}`}><Icon name="star" /></span>)}
+</span>

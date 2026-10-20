@@ -1,4 +1,4 @@
-"""Web versions of the clinic's own photographs (public/img/), from assets/images/ and the two
+"""Web versions of the clinic's own photographs (public/img/), from legacy/assets/images/ (the July 2026 build) and the two
 larger originals published on panagidisdental.com (reception and office, 1600 px).
 
 Nothing is retouched: images are only cropped where noted and resized. WebP at the widths the
@@ -9,7 +9,7 @@ import io, pathlib, urllib.request
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SRC = ROOT / 'assets' / 'images'
+SRC = ROOT / 'legacy' / 'assets' / 'images'
 OUT = ROOT / 'public' / 'img'
 OUT.mkdir(parents=True, exist_ok=True)
 LIB = 'https://www.panagidisdental.com/storage/library/'
@@ -25,7 +25,7 @@ JOBS = {
     'hero-model':        ('hero_slide6.jpg', (800, 1280, 1920), None),            # model engraved "Adonis Panagidis", seen through loupes
     'scanner':           ('hero_slide5.jpg', (800, 1280, 1920), None),            # 3Shape intraoral scanner and planning screen
     'instruments':       ('hero_slide4.jpg', (800, 1280, 1920), None),
-    'cerec-unit':        ('hero_slide1.png', (640, 1100), (0.0, 0.08, 0.6, 1.0)),  # CEREC MC XL (product image, as published by the clinic)
+    'cerec-unit':        ('hero_slide1.png', (640, 998), (0.2, 0.11, 0.72, 0.86)),  # CEREC MC XL (product image, as published by the clinic)
     'restorations':      ('body_cerec_machine.png', (640, 1000, 1400), None),     # ceramic restorations milled in the clinic
     'reception':         ('lib:60151fec8283d.jpg', (640, 1000, 1600), None),
     'office':            ('lib:60152649a2d2e.jpg', (640, 1000, 1600), None),

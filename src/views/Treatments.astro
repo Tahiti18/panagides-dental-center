@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Closing from '../components/Closing.astro';
+import { tr, type Lang } from '../data/site';
+import { treatments } from '../data/treatments';
+import { ui } from '../data/ui';
+import { href } from '../lib/paths';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui(lang);
+const p = t.treatmentsPage;
+---
+<Layout lang={lang} path="treatments/" current="treatments" title={p.metaTitle} description={p.metaDescription}>
+  <PageHero lang={lang} eyebrow={p.eyebrow} title={p.title} lead={p.lead} crumbs={[{ label: t.nav.treatments }]} />
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <ul class="tlist">
+        {treatments.map((x, i) => (
+          <li class="rv" style={`--d:${i % 3}`}>
+            <a href={href(lang, `treatments/${x.slug}/`)}>
+              <h2 class="h3" style="font-size:var(--h3)">{tr(lang, x.name)}</h2>
+              <span class="go" aria-hidden="true"><Icon name="arrow" /></span>
+              <p>{tr(lang, x.summary)}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <Closing lang={lang} />
+</Layout>

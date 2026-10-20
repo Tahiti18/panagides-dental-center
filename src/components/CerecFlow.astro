@@ -1,0 +1,30 @@
+---
+import Pic from './Pic.astro';
+import { cerecSteps, tr, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+// one clinic photograph per step
+const imgs: Record<string, string> = { scan: 'scanner', design: 'hero-model', mill: 'cerec-unit', fit: 'restorations' };
+const alts: Record<string, { en: string; el: string }> = {
+  scan: { en: 'The clinic’s 3Shape intraoral scanner beside a screen showing a digital model of the teeth', el: 'Ο ενδοστοματικός σαρωτής 3Shape του ιατρείου δίπλα σε οθόνη με ψηφιακό μοντέλο των δοντιών' },
+  design: { en: 'A dental model engraved with Dr Panagidis’s name, seen through magnifying loupes', el: 'Εκμαγείο με χαραγμένο το όνομα του Δρ Παναγίδη, μέσα από μεγεθυντικά γυαλιά' },
+  mill: { en: 'The CEREC MC XL milling unit', el: 'Η μονάδα κατασκευής CEREC MC XL' },
+  fit: { en: 'Four ceramic restorations milled in the clinic', el: 'Τέσσερις κεραμικές αποκαταστάσεις κατασκευασμένες στο ιατρείο' },
+};
+---
+<div class="flow" data-flow>
+  <div class="flow-media" aria-hidden="true">
+    <div class="frame">
+      {cerecSteps.map((s) => <Pic k={imgs[s.key]} alt="" sizes="(min-width: 960px) 50vw, 100vw" />)}
+    </div>
+  </div>
+  <ol class="flow-steps">
+    {cerecSteps.map((s) => (
+      <li class="flow-step">
+        <h3>{tr(lang, s.title)}</h3>
+        <p>{tr(lang, s.text)}</p>
+        <div class="frame step-img"><Pic k={imgs[s.key]} alt={tr(lang, alts[s.key])} sizes="100vw" /></div>
+      </li>
+    ))}
+  </ol>
+</div>

@@ -1,0 +1,23 @@
+---
+// Clinic photographs from public/img/ (made by scripts/process-images.py).
+const SIZES: Record<string, number[]> = {
+  'hero-model': [800, 1280, 1920], scanner: [800, 1280, 1920], instruments: [800, 1280, 1920],
+  'cerec-unit': [640, 998], restorations: [640, 1000, 1400], reception: [640, 1000, 1600], office: [640, 1000, 1600],
+  'room-1': [640], 'room-2': [640], unit: [640], portrait: [357],
+};
+const DIMS: Record<string, [number, number]> = {
+  'hero-model': [1920, 918], scanner: [1920, 918], instruments: [1920, 918], 'cerec-unit': [998, 688],
+  restorations: [1400, 1050], reception: [1600, 1059], office: [1600, 1079], 'room-1': [640, 433], 'room-2': [640, 433], unit: [640, 433], portrait: [357, 357],
+};
+interface Props { k: string; alt: string; sizes?: string; eager?: boolean; class?: string; style?: string; parallax?: number }
+const { k, alt, sizes = '100vw', eager = false, class: cls, style, parallax } = Astro.props;
+const w = SIZES[k];
+const top = w[w.length - 1];
+const [W, H] = DIMS[k];
+---
+<picture>
+  <source type="image/webp" srcset={w.map((x) => `/img/${k}-${x}.webp ${x}w`).join(', ')} sizes={sizes} />
+  <img class={cls} style={style} src={`/img/${k}-${top}.jpg`} width={W} height={H} alt={alt} sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : undefined}
+    data-parallax={parallax} />
+</picture>

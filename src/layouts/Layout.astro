@@ -1,0 +1,153 @@
+---
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import { clinic, tr, SITE_URL, type Lang } from '../data/site';
+import { ui } from '../data/ui';
+import { href, other } from '../lib/paths';
+
+interface Props { lang: Lang; path: string; title: string; description?: string; current?: string; altPath?: string; schema?: object[] }
+const { lang, path, title, description, current, altPath, schema = [] } = Astro.props;
+const t = ui(lang);
+const o = other(lang);
+const switchTo = href(o, altPath ?? path);
+const nav = [
+  { key: 'treatments', path: 'treatments/' },
+  { key: 'technology', path: 'technology/' },
+  { key: 'doctor', path: 'dr-adonis-panagidis/' },
+  { key: 'clinic', path: 'the-clinic/' },
+  { key: 'blog', path: 'blog/' },
+  { key: 'contact', path: 'contact/' },
+] as const;
+const canonical = SITE_URL + href(lang, path);
+const dentist = {
+  '@context': 'https://schema.org', '@type': 'Dentist', name: 'Dr Adonis Panagidis Dental Center', url: SITE_URL + '/',
+  telephone: '+35722452345', email: clinic.email, image: SITE_URL + '/img/hero-model-1280.jpg',
+  address: { '@type': 'PostalAddress', streetAddress: '15 Androkleous Str., Amaral 13 Building, Flat 403', addressLocality: 'Nicosia', postalCode: '1061', addressCountry: 'CY' },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '19:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '09:00', closes: '16:00' },
+  ],
+  sameAs: Object.values(clinic.social),
+};
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang={lang} href={canonical} />
+  <link rel="alternate" hreflang={o} href={SITE_URL + switchTo} />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:image" content={SITE_URL + '/img/hero-model-1280.jpg'} />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#f6f4ef" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/fonts/piazzolla-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <script is:inline>document.documentElement.classList.add('js');</script>
+  {[dentist, ...schema].map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+</head>
+<body>
+  <a class="skip" href="#main">{t.skip}</a>
+  <header class="site-header" data-header>
+    <div class="wrap header-row">
+      <Logo lang={lang} href={href(lang)} />
+      <nav class="nav" aria-label={lang === 'el' ? 'Κύριο μενού' : 'Main'}>
+        <ul>
+          {nav.map((n) => <li><a href={href(lang, n.path)} aria-current={current === n.key ? 'page' : undefined}>{t.nav[n.key]}</a></li>)}
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="lang" href={switchTo} hreflang={o} lang={o} aria-label={t.langLabel}>{t.langShort}</a>
+        <a class="btn btn--primary header-book" href={href(lang, 'contact/')}>{t.book}</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="drawer" data-menu>
+          <Icon name="menu" /><span data-menu-label data-open={t.menu} data-close={t.close}>{t.menu}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="drawer" id="drawer" hidden data-drawer>
+    <nav aria-label={lang === 'el' ? 'Μενού κινητού' : 'Mobile'}>
+      <ul>
+        <li><a href={href(lang)}>{t.home}<Icon name="arrow" class="sr-only" /></a></li>
+        {nav.map((n) => <li><a href={href(lang, n.path)} aria-current={current === n.key ? 'page' : undefined}>{t.nav[n.key]}</a></li>)}
+      </ul>
+    </nav>
+    <div class="btns">
+      <a class="btn btn--primary" href={href(lang, 'contact/')}>{t.book}<Icon name="arrow" class="arr" /></a>
+      <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
+      <a class="btn btn--ghost" href={clinic.whatsapp.href} target="_blank" rel="noopener"><Icon name="whatsapp" />{t.whatsapp}<span class="sr-only"> {t.external}</span></a>
+      <a class="btn btn--ghost" href={switchTo} hreflang={o} lang={o}>{t.langLabel}</a>
+    </div>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <Logo lang={lang} href={href(lang)} />
+          <p class="foot-line">{t.footerLine}</p>
+          <div class="social">
+            <a href={clinic.social.facebook} target="_blank" rel="noopener" aria-label={`Facebook ${t.external}`}><Icon name="facebook" /></a>
+            <a href={clinic.social.instagram} target="_blank" rel="noopener" aria-label={`Instagram ${t.external}`}><Icon name="instagram" /></a>
+            <a href={clinic.social.linkedin} target="_blank" rel="noopener" aria-label={`LinkedIn ${t.external}`}><Icon name="linkedin" /></a>
+          </div>
+        </div>
+        <div>
+          <h2>{t.nav.treatments}</h2>
+          <ul>
+            <li><a href={href(lang, 'treatments/dental-implants/')}>{lang === 'el' ? 'Οδοντικά εμφυτεύματα' : 'Dental implants'}</a></li>
+            <li><a href={href(lang, 'treatments/same-day-crowns-and-veneers/')}>{lang === 'el' ? 'Στεφάνες & όψεις σε 1–2 ημέρες' : 'Crowns & veneers in 1–2 days'}</a></li>
+            <li><a href={href(lang, 'treatments/aesthetic-dentistry/')}>{lang === 'el' ? 'Αισθητική οδοντιατρική' : 'Aesthetic dentistry'}</a></li>
+            <li><a href={href(lang, 'treatments/general-dentistry/')}>{lang === 'el' ? 'Γενική οδοντιατρική' : 'General dentistry'}</a></li>
+            <li><a href={href(lang, 'treatments/oral-surgery/')}>{lang === 'el' ? 'Στοματική χειρουργική' : 'Oral surgery'}</a></li>
+            <li><a href={href(lang, 'treatments/prosthodontics/')}>{lang === 'el' ? 'Προσθετική' : 'Prosthodontics'}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>{t.hoursTitle}</h2>
+          <dl class="hours">
+            {clinic.hours.map((h) => <div><dt>{tr(lang, h.days)}</dt><dd>{h.time}</dd></div>)}
+          </dl>
+          <p class="foot-line">{t.hoursNote}</p>
+        </div>
+        <div>
+          <h2>{t.nav.contact}</h2>
+          <ul>
+            <li>{clinic.address[lang][0]}<br />{clinic.address[lang][1]}</li>
+            <li><a href={clinic.phone.href}>{clinic.phone.display}</a></li>
+            <li><a href={clinic.whatsapp.href} target="_blank" rel="noopener">WhatsApp {clinic.whatsapp.display}<span class="sr-only"> {t.external}</span></a></li>
+            <li><a href={`mailto:${clinic.email}`}>{clinic.email}</a></li>
+            <li><a href={clinic.maps} target="_blank" rel="noopener">{t.directions}<span class="sr-only"> {t.external}</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© {new Date().getFullYear()} {tr(lang, clinic.name)}. {t.rights}</span>
+        <span class="foot-gesy"><img src="/img/gesy.png" alt="" width="141" height="81" />{t.gesy}</span>
+        <a href={href(lang, 'privacy/')}>{t.privacy}</a>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mbar" aria-label={lang === 'el' ? 'Γρήγορη επικοινωνία' : 'Quick contact'} data-mbar>
+    <a href={clinic.phone.href}><Icon name="phone" />{t.call}</a>
+    <a href={clinic.whatsapp.href} target="_blank" rel="noopener"><Icon name="whatsapp" />{t.whatsapp}<span class="sr-only"> {t.external}</span></a>
+    <a class="is-primary" href={href(lang, 'contact/')}>{t.bookShort}</a>
+  </nav>
+
+  <script>
+    import '../scripts/site.ts';
+  </script>
+</body>
+</html>

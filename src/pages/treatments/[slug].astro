@@ -1,0 +1,7 @@
+---
+import View from '../../views/Treatment.astro';
+import { treatments } from '../../data/treatments';
+export function getStaticPaths() { return treatments.map((t) => ({ params: { slug: t.slug } })); }
+const { slug } = Astro.params;
+---
+<View lang="en" slug={slug!} />
