@@ -7,8 +7,8 @@ interface Props { lang: Lang; title?: string; text?: string }
 const { lang, title, text } = Astro.props;
 const t = ui(lang);
 ---
-<section class="section section--ink" aria-labelledby="closing-h">
-  <div class="wrap">
+<section class="section section--white closing-band" aria-labelledby="closing-h">
+  <div class="wrap"><div class="closing-panel">
     <div class="closing">
       <div>
         <p class="eyebrow rv">{t.nav.contact}</p>
@@ -16,9 +16,9 @@ const t = ui(lang);
         <p class="lead rv" style="--d:2;margin-top:14px">{text ?? t.home_.closingText}</p>
       </div>
       <div class="btns rv" style="--d:2">
-        <a class="btn btn--light" href={href(lang, 'contact/')}>{t.book}<Icon name="arrow" class="arr" /></a>
-        <a class="btn btn--ghost-light" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
-        <a class="btn btn--ghost-light" href={clinic.whatsapp.href} target="_blank" rel="noopener"><Icon name="whatsapp" />{t.whatsapp}<span class="sr-only"> {t.external}</span></a>
+        <a class="btn btn--primary" href={href(lang, 'contact/')}>{t.book}<Icon name="arrow" class="arr" /></a>
+        <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
+        <a class="btn btn--ghost" href={clinic.whatsapp.href} target="_blank" rel="noopener"><Icon name="whatsapp" />{t.whatsapp}<span class="sr-only"> {t.external}</span></a>
       </div>
     </div>
     <div class="contact-grid">
@@ -30,12 +30,12 @@ const t = ui(lang);
       <div>
         <h3>{t.hoursTitle}</h3>
         <dl class="hours">{clinic.hours.map((h) => <div><dt>{tr(lang, h.days)}</dt><dd>{h.time}</dd></div>)}</dl>
-        <p style="margin:10px 0 0;font-size:.9rem;color:var(--on-ink-muted)">{t.hoursNote}</p>
+        <p class="muted" style="margin:10px 0 0;font-size:.9rem">{t.hoursNote}</p>
       </div>
       <div>
         <h3>{t.phone} · {t.email}</h3>
         <p style="margin:0"><a href={clinic.phone.href}>{clinic.phone.display}</a> / <a href={clinic.phone2.href}>{clinic.phone2.display.slice(-6)}</a><br /><a href={`mailto:${clinic.email}`}>{clinic.email}</a></p>
       </div>
     </div>
-  </div>
+  </div></div>
 </section>

@@ -463,3 +463,22 @@ img[src*='cerec-unit'], source[srcset*='cerec-unit'] + img { object-fit: contain
 .frame:has(img[src*='cerec-unit']) { background: #fff; }
 
 :lang(el) .nav a { font-size: 0.92rem; padding: 0 9px; }
+
+/* Closing band: its own light section, distinct from the dark footer */
+.closing-band { padding-bottom: clamp(48px, 6vw, 80px); }
+.closing-panel { padding: clamp(28px, 5vw, 64px); border-radius: 24px; background: linear-gradient(135deg, #e7f3f6 0%, #f3f8f9 60%, #eef3f1 100%); border: 1px solid rgba(0, 106, 130, 0.12); }
+.closing-band .contact-grid { border-top-color: var(--line); }
+.closing-band .contact-grid h3 { color: var(--cyan-ink); }
+.closing-band .contact-grid p, .closing-band .contact-grid a, .closing-band .hours { color: var(--ink); }
+.closing-band .contact-grid a.link { color: var(--cyan-ink); }
+
+/* Compact footer */
+.site-footer { padding-top: clamp(36px, 4vw, 52px); font-size: 0.94rem; }
+.foot-grid { gap: 24px 32px; padding-bottom: 24px; }
+.foot-grid h2 { margin-bottom: 10px; }
+.foot-grid ul { gap: 5px; }
+.foot-line { margin-top: 10px; }
+.social { margin-top: 12px; }
+.social a { width: 40px; height: 40px; }
+.foot-bottom { padding: 16px 0 20px; }
+@media (min-width: 900px) { .foot-grid { grid-template-columns: 1.3fr 1.1fr 0.9fr 1.2fr; } }
