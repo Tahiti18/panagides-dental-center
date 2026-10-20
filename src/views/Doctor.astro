@@ -13,7 +13,7 @@ const person = { '@context': 'https://schema.org', '@type': 'Dentist', name: 'Dr
 ---
 <Layout lang={lang} path="dr-adonis-panagidis/" current="doctor" title={d.metaTitle} description={d.metaDescription} schema={[person]}>
   <PageHero lang={lang} eyebrow={d.eyebrow} title={d.title} lead={d.lead} crumbs={[{ label: t.nav.doctor }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap doc">
       <div class="portrait rv"><div class="frame"><Pic k="portrait" eager sizes="360px" alt={tr(lang, { en: 'Dr Adonis Panagidis', el: 'Ο Δρ Άδωνις Παναγίδης' })} /></div></div>
       <div>
@@ -24,7 +24,7 @@ const person = { '@context': 'https://schema.org', '@type': 'Dentist', name: 'Dr
       </div>
     </div>
   </section>
-  <section class="section section--white" aria-labelledby="tl-h">
+  <section class="section" aria-labelledby="tl-h">
     <div class="wrap" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:start">
       <div style="position:sticky;top:calc(var(--header-h) + 32px)">
         <p class="eyebrow rv">{d.eyebrow}</p>

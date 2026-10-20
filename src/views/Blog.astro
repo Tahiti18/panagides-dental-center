@@ -12,7 +12,7 @@ const b = t.blogPage;
 ---
 <Layout lang={lang} path="blog/" current="blog" title={b.metaTitle} description={b.metaDescription}>
   <PageHero lang={lang} eyebrow={b.eyebrow} title={b.title} lead={[b.lead, b.greekNote].filter(Boolean).join(' ')} crumbs={[{ label: t.nav.blog }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap">
       <ul class="cards cards--3">
         {blog.map((p, i) => (

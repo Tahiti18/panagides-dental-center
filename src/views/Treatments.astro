@@ -14,7 +14,7 @@ const p = t.treatmentsPage;
 ---
 <Layout lang={lang} path="treatments/" current="treatments" title={p.metaTitle} description={p.metaDescription}>
   <PageHero lang={lang} eyebrow={p.eyebrow} title={p.title} lead={p.lead} crumbs={[{ label: t.nav.treatments }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap">
       <ul class="tlist">
         {treatments.map((x, i) => (

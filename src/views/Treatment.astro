@@ -20,7 +20,7 @@ const title = lang === 'el' ? `${name} στη Λευκωσία · Δρ Άδων�
 ---
 <Layout lang={lang} path={`treatments/${slug}/`} current="treatments" title={title} description={tr(lang, x.summary)} schema={[faqSchema]}>
   <PageHero lang={lang} eyebrow={t.nav.treatments} title={name} lead={tr(lang, x.summary)} crumbs={[{ label: t.nav.treatments, path: 'treatments/' }, { label: name }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap t-layout">
       <div>
         {x.image && <div class="frame zoom rv" style="aspect-ratio:16/9;margin-bottom:clamp(28px,4vw,44px)"><Pic k={x.image} eager sizes="(min-width: 960px) 60vw, 100vw" alt="" /></div>}
