@@ -79,8 +79,8 @@ em { font-style: italic; }
 .section--ink h2, .section--ink h3 { color: var(--white); }
 
 /* Eyebrow with the "measured line" motif: a short rule with three ticks, like a scale bar */
-.eyebrow { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 18px; font: 600 0.78rem/1.2 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan-ink); }
-.eyebrow::before { content: ''; width: 34px; height: 9px; flex: none; background:
+.eyebrow { display: inline-flex; align-items: flex-start; gap: 12px; margin: 0 0 18px; font: 600 clamp(0.94rem, 0.86rem + 0.25vw, 1.06rem)/1.25 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan-ink); }
+.eyebrow::before { content: ''; width: 34px; height: 9px; margin-top: 0.3em; flex: none; background:
   linear-gradient(currentColor, currentColor) 0 100% / 100% 1.5px no-repeat,
   repeating-linear-gradient(90deg, currentColor 0 1.5px, transparent 1.5px 16.25px) 0 100% / 100% 9px no-repeat; opacity: 0.85; }
 .section--ink .eyebrow { color: var(--cyan-light); }
@@ -300,7 +300,7 @@ body.no-scroll { overflow: hidden; }
 /* ---------- Doctor ---------- */
 .doc { display: grid; gap: clamp(28px, 5vw, 64px); align-items: center; }
 @media (min-width: 900px) { .doc { grid-template-columns: 0.8fr 1.2fr; } }
-.portrait { position: relative; max-width: 360px; }
+.portrait { position: relative; max-width: min(360px, calc(100% - 14px)); }
 .portrait .frame { aspect-ratio: 1; border-radius: 50% 50% var(--radius) var(--radius); }
 .portrait::after { content: ''; position: absolute; inset: 14px -14px -14px 14px; border: 1.5px solid var(--cyan); border-radius: 50% 50% var(--radius) var(--radius); z-index: -1; }
 .doc .role { margin: 8px 0 20px; font: 600 0.8rem/1.4 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan-ink); }
