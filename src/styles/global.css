@@ -118,8 +118,11 @@ em { font-style: italic; }
 .section--ink .caption { color: var(--on-ink-muted); }
 
 /* ---------- Header ---------- */
-.site-header { position: sticky; top: 0; z-index: 60; background: rgba(246, 244, 239, 0.92); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid transparent; transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
-.site-header.is-scrolled { border-bottom-color: var(--line); box-shadow: 0 10px 30px -24px rgba(27, 39, 51, 0.5); }
+.site-header { position: sticky; top: 0; z-index: 60; background: rgba(246, 244, 239, 0.92); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); transition: box-shadow 0.3s var(--ease); }
+/* Hairline in the logo's cyan, always on; half a pixel on high-density screens */
+.site-header::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--cyan); transform-origin: bottom; pointer-events: none; }
+@media (min-resolution: 2dppx) { .site-header::after { transform: scaleY(0.5); } }
+.site-header.is-scrolled { box-shadow: 0 10px 30px -24px rgba(27, 39, 51, 0.5); }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: var(--header-h); }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--slate); flex: none; }
 .brand svg { width: 34px; height: 40px; color: var(--cyan); }
