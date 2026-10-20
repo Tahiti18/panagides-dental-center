@@ -46,7 +46,6 @@ const once = (selector: string, cls: string, opts: IntersectionObserverInit = { 
 };
 once('.rv, .zoom', 'is-in');
 once('[data-stars]', 'is-lit', { threshold: 0.5 });
-once('.plan-wrap', 'is-in', { threshold: 0.4 });
 
 // ---------- Light parallax on a few large photos (desktop, motion allowed) ----------
 const parallax = [...document.querySelectorAll<HTMLElement>('[data-parallax]')];
@@ -95,6 +94,70 @@ if (flow) {
     steps.forEach((s) => obs.observe(s));
   }
 }
+
+// ---------- Implant plan: walks 01 → 04 on a loop while in view, stops on hover, focus or Pause ----------
+document.querySelectorAll<HTMLElement>('[data-plan]').forEach((root) => {
+  if (reduce || !('IntersectionObserver' in window)) return;
+  const items = [...root.querySelectorAll<HTMLElement>('.plan li')];
+  const line = root.querySelector<HTMLElement>('.plan-line')!;
+  const ctrl = root.querySelector<HTMLElement>('.plan-ctrl');
+  const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]');
+  const wide = window.matchMedia('(min-width: 900px)');
+  // Centre of the 15px dot from the item's top-left, and where the line starts (see .plan-line)
+  const dot = () => (wide.matches ? 14.5 : 7.5);
+  const top = () => (wide.matches ? 14 : 7);
+  let i = -1;
+  let timer = 0;
+  let userPaused = false;
+  let hover = false;
+  let visible = false;
+
+  // Fraction of the line that reaches step k's dot (the last step fills it to the end)
+  const fill = (k: number) => {
+    if (k < 0) return 0;
+    if (wide.matches) return k === items.length - 1 ? 1 : (items[k].offsetLeft + 7.5 - 7) / (root.clientWidth - 7);
+    const last = items[items.length - 1].offsetTop + dot() - top();
+    return (items[k].offsetTop + dot() - top()) / last;
+  };
+  const size = () => { line.style.height = wide.matches ? '' : `${items[items.length - 1].offsetTop + dot() - top()}px`; };
+  const show = (k: number) => {
+    i = k;
+    items.forEach((li, j) => {
+      li.classList.toggle('is-on', j === k);
+      li.classList.toggle('is-done', j < k);
+      if (j === k) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    root.style.setProperty('--f', fill(k).toFixed(4));
+  };
+  const tick = () => {
+    const next = i >= items.length - 1 ? -1 : i + 1; // after 04, clear and start again
+    show(next);
+    timer = window.setTimeout(tick, next === -1 ? 900 : next === items.length - 1 ? 2800 : 2000);
+  };
+  const running = () => !userPaused && !hover && visible && !document.hidden;
+  const sync = () => {
+    window.clearTimeout(timer); timer = 0;
+    if (running()) timer = window.setTimeout(tick, i < 0 ? 300 : 2000);
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', String(userPaused));
+      toggle.querySelector('[data-label]')!.textContent = userPaused ? toggle.dataset.play! : toggle.dataset.pause!;
+      toggle.classList.toggle('is-paused', userPaused);
+    }
+  };
+
+  root.classList.add('is-looping');
+  if (ctrl) ctrl.hidden = false;
+  size();
+  show(-1);
+  toggle?.addEventListener('click', () => { userPaused = !userPaused; sync(); });
+  root.addEventListener('mouseenter', () => { hover = true; sync(); });
+  root.addEventListener('mouseleave', () => { hover = false; sync(); });
+  root.addEventListener('focusin', () => { hover = true; sync(); });
+  root.addEventListener('focusout', () => { hover = false; sync(); });
+  document.addEventListener('visibilitychange', sync);
+  window.addEventListener('resize', () => { size(); root.style.setProperty('--f', fill(i).toFixed(4)); }, { passive: true });
+  io(([e]) => { visible = e.isIntersecting; sync(); }, { threshold: 0.35 }).observe(root);
+});
 
 // ---------- Reviews rail: four at a time, drifts on by itself, stops when touched ----------
 document.querySelectorAll<HTMLElement>('[data-rail]').forEach((root) => {
