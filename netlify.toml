@@ -1,0 +1,10 @@
+# Plain HTML site: nothing to build, publish the repository root.
+[build]
+  publish = "."
+
+# Preview: keep search engines out until the clinic approves a launch.
+# Remove this header, the robots meta tags and robots.txt at launch.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
