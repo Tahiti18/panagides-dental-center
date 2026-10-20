@@ -23,7 +23,7 @@ const tiles2 = [
 ---
 <Layout lang={lang} path="the-clinic/" current="clinic" title={c.metaTitle} description={c.metaDescription}>
   <PageHero lang={lang} eyebrow={c.eyebrow} title={c.title} lead={c.lead} crumbs={[{ label: t.nav.clinic }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap">
       <div class="mosaic">
         {tiles.map((x, i) => <figure class:list={[x.cls, 'rv']} style={`--d:${i % 3}`}><div class:list={['frame', !x.p && 'zoom']}><Pic k={x.k} parallax={x.p} eager={i < 2} sizes="(min-width: 900px) 50vw, 100vw" alt={x.cap} /></div><figcaption class="caption">{x.cap}</figcaption></figure>)}
@@ -33,7 +33,7 @@ const tiles2 = [
       </div>
     </div>
   </section>
-  <section class="section section--white" aria-labelledby="acc-h">
+  <section class="section" aria-labelledby="acc-h">
     <div class="wrap narrow">
       <h2 id="acc-h" class="rv">{c.accessTitle}</h2>
       <p class="lead rv" style="--d:1;margin-top:14px">{c.access}</p>

@@ -95,7 +95,7 @@ if (flow) {
   }
 }
 
-// ---------- Implant plan: walks 01 → 04 on a loop while in view, stops on hover, focus or Pause ----------
+// ---------- Implant plan: walks 01 → 04 on a loop as soon as it scrolls into view; the Pause button stops it ----------
 document.querySelectorAll<HTMLElement>('[data-plan]').forEach((root) => {
   if (reduce || !('IntersectionObserver' in window)) return;
   const items = [...root.querySelectorAll<HTMLElement>('.plan li')];
@@ -106,10 +106,11 @@ document.querySelectorAll<HTMLElement>('[data-plan]').forEach((root) => {
   // Centre of the 15px dot from the item's top-left, and where the line starts (see .plan-line)
   const dot = () => (wide.matches ? 14.5 : 7.5);
   const top = () => (wide.matches ? 14 : 7);
+  const STEP = 1500; // time on each step, 01 → 04
+  const CLEAR = 500; // pause with nothing lit before 01 again
   let i = -1;
   let timer = 0;
   let userPaused = false;
-  let hover = false;
   let visible = false;
 
   // Fraction of the line that reaches step k's dot (the last step fills it to the end)
@@ -132,12 +133,12 @@ document.querySelectorAll<HTMLElement>('[data-plan]').forEach((root) => {
   const tick = () => {
     const next = i >= items.length - 1 ? -1 : i + 1; // after 04, clear and start again
     show(next);
-    timer = window.setTimeout(tick, next === -1 ? 900 : next === items.length - 1 ? 2800 : 2000);
+    timer = window.setTimeout(tick, next === -1 ? CLEAR : STEP);
   };
-  const running = () => !userPaused && !hover && visible && !document.hidden;
+  const running = () => !userPaused && visible && !document.hidden;
   const sync = () => {
     window.clearTimeout(timer); timer = 0;
-    if (running()) timer = window.setTimeout(tick, i < 0 ? 300 : 2000);
+    if (running()) timer = window.setTimeout(tick, i < 0 ? 0 : STEP);
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(userPaused));
       toggle.querySelector('[data-label]')!.textContent = userPaused ? toggle.dataset.play! : toggle.dataset.pause!;
@@ -150,13 +151,10 @@ document.querySelectorAll<HTMLElement>('[data-plan]').forEach((root) => {
   size();
   show(-1);
   toggle?.addEventListener('click', () => { userPaused = !userPaused; sync(); });
-  root.addEventListener('mouseenter', () => { hover = true; sync(); });
-  root.addEventListener('mouseleave', () => { hover = false; sync(); });
-  root.addEventListener('focusin', () => { hover = true; sync(); });
-  root.addEventListener('focusout', () => { hover = false; sync(); });
   document.addEventListener('visibilitychange', sync);
   window.addEventListener('resize', () => { size(); root.style.setProperty('--f', fill(i).toFixed(4)); }, { passive: true });
-  io(([e]) => { visible = e.isIntersecting; sync(); }, { threshold: 0.35 }).observe(root);
+  // Starts as soon as the top of the plan is a little way onto the screen
+  io(([e]) => { visible = e.isIntersecting; sync(); }, { rootMargin: '0px 0px -10% 0px' }).observe(root);
 });
 
 // ---------- Reviews rail: four at a time, drifts on by itself, stops when touched ----------

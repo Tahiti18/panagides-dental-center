@@ -34,22 +34,27 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
           <a class="btn btn--ghost" href={clinic.phone.href}><Icon name="phone" />{clinic.phone.display}</a>
         </div>
         <ul class="hero-proof rv" style="--d:4">
-          <li><Stars label={lang === 'el' ? `${clinic.googleRating} από 5 στο Google` : `${clinic.googleRating} out of 5 on Google`} /><span class="rating">{clinic.googleRating}</span> {t.google}</li>
           <li><img src="/img/gesy.png" alt="" width="141" height="81" />{t.gesy}</li>
           {h.proofItm.map((p) => <li>{p}</li>)}
         </ul>
       </div>
       <div class="hero-media rv" style="--d:2">
         <div class="frame">
-          <Pic k="hero-model" eager sizes="(min-width: 960px) 52vw, 100vw" alt={lang === 'el' ? 'Εκμαγείο δοντιών με χαραγμένο το όνομα Adonis Panagidis, μέσα από μεγεθυντικά γυαλιά' : 'A dental model engraved with the name Adonis Panagidis, seen through magnifying loupes'} />
+          <Pic k="hero-model" eager sizes="(min-width: 960px) 52vw, 100vw" alt={lang === 'el' ? 'Εκμαγείο δοντιών, μέσα από μεγεθυντικά γυαλιά' : 'A dental model seen through magnifying loupes'} />
           <span class="scan" aria-hidden="true"></span>
         </div>
-        <p class="hero-badge"><Icon name="layers" />{h.heroCard}</p>
+        <a class="hero-badge hero-rating" href={clinic.googleUrl} target="_blank" rel="noopener">
+          <span class="hero-rating-num" aria-hidden="true">{clinic.googleRating}</span>
+          <span class="hero-rating-meta">
+            <Stars label={lang === 'el' ? `${clinic.googleRating} από 5` : `${clinic.googleRating} out of 5`} delay={700} step={170} />
+            <span>{t.google}</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section section--sand" aria-labelledby="concerns-h">
+  <section class="section" aria-labelledby="concerns-h">
     <div class="wrap">
       <div class="head">
         <p class="eyebrow rv">{h.concernsEyebrow}</p>
@@ -67,8 +72,8 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
 
   <Reviews lang={lang} eyebrow={h.reviewsEyebrow} title={h.reviewsTitle} lead={h.reviewsLead} />
 
-  <section class="section section--ink" aria-labelledby="cerec-h">
-    <div class="wrap">
+  <section class="section section--panel" aria-labelledby="cerec-h">
+    <div class="wrap"><div class="section--ink ink-panel">
       <div class="head head--split">
         <div>
           <p class="eyebrow rv">{h.cerecEyebrow}</p>
@@ -80,7 +85,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
         </div>
       </div>
       <CerecFlow lang={lang} />
-    </div>
+    </div></div>
   </section>
 
   <section class="section" aria-labelledby="treat-h">
@@ -107,7 +112,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
   </section>
 
   {cases.length > 0 && (
-    <section class="section section--white" aria-labelledby="cases-h">
+    <section class="section" aria-labelledby="cases-h">
       <div class="wrap">
         <div class="head">
           <p class="eyebrow rv">{lang === 'el' ? 'Αποτελέσματα' : 'Results'}</p>
@@ -118,7 +123,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
     </section>
   )}
 
-  <section class="section section--sand" aria-labelledby="implant-h">
+  <section class="section" aria-labelledby="implant-h">
     <div class="wrap">
       <div class="head head--split">
         <div>
@@ -149,7 +154,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
     </div>
   </section>
 
-  <section class="section section--white" aria-labelledby="clinic-h">
+  <section class="section" aria-labelledby="clinic-h">
     <div class="wrap">
       <div class="head head--split">
         <div>
@@ -193,7 +198,7 @@ const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEn
     </div>
   </section>
 
-  <section class="section section--sand" aria-labelledby="faq-h">
+  <section class="section" aria-labelledby="faq-h">
     <div class="wrap">
       <div class="head head--split" style="align-items:start">
         <div>

@@ -14,14 +14,14 @@ const more = blog.filter((x) => x.slug !== slug).slice(0, 3);
 ---
 <Layout lang={lang} path={`blog/${slug}/`} altPath="blog/" current="blog" title={`${p.title} · ${lang === 'el' ? 'Δρ Άδωνις Παναγίδης' : 'Dr Adonis Panagidis'}`} description={p.summary}>
   <PageHero lang={lang} eyebrow={t.blogPage.eyebrow} title={p.title} crumbs={[{ label: t.nav.blog, path: 'blog/' }, { label: p.title }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap narrow">
       {p.image && <div class="frame article-hero"><img src={p.image.src} width={p.image.w} height={p.image.h} alt="" /></div>}
       <article class="article" lang={p.lang} set:html={p.html} />
       <p style="margin-top:40px"><a class="link" href={href(lang, 'blog/')}>← {t.blogPage.back}</a></p>
     </div>
   </section>
-  <section class="section section--white" aria-labelledby="more-h">
+  <section class="section" aria-labelledby="more-h">
     <div class="wrap">
       <h2 id="more-h" class="rv" style="margin-bottom:28px">{t.home_.blogTitle}</h2>
       <ul class="cards cards--3">

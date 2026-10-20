@@ -45,6 +45,6 @@ photographs, and the owner's confirmation (20 Oct 2026) that the scanner and mic
 ## Added 20 Oct 2026 (Google Business Profile, signed-out view)
 | Fact | Source | Status | Wording on the site |
 |---|---|---|---|
-| Google rating 5.0 | Google Business Profile | Verified (count not visible signed out) | "5.0 on Google", no count |
+| Google rating 5.0 | Google Business Profile; owner confirmed 15 reviews, all five stars (20 Oct 2026) | Verified | "5.0 on Google" with animated stars in the hero; the count is left off by the owner's choice |
 | Wheelchair-accessible entrance, seating and restroom | Google Business Profile, Accessibility | Strongly supported | "The clinic’s Google profile lists …" |
 | Opening hours | Google shows Tuesday 9:00–13:30 and 15:00–19:00; the clinic website says Mon–Thu 9:00–19:00 | **Contradiction** | Website hours shown with "please call ahead"; clinic to confirm |

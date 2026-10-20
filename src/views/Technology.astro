@@ -19,7 +19,7 @@ const rows = [
 ---
 <Layout lang={lang} path="technology/" current="technology" title={x.metaTitle} description={x.metaDescription}>
   <PageHero lang={lang} eyebrow={x.eyebrow} title={x.title} lead={x.lead} crumbs={[{ label: t.nav.technology }]} />
-  <section class="section" style="padding-top:0">
+  <section class="section">
     <div class="wrap tech">
       {rows.map((r) => (
         <div class="tech-row">
@@ -33,13 +33,13 @@ const rows = [
       ))}
     </div>
   </section>
-  <section class="section section--ink" aria-labelledby="flow-h">
-    <div class="wrap">
+  <section class="section section--panel" aria-labelledby="flow-h">
+    <div class="wrap"><div class="section--ink ink-panel">
       <div class="head"><p class="eyebrow rv">CEREC</p><h2 id="flow-h" class="rv" style="--d:1">{x.flowTitle}</h2></div>
       <CerecFlow lang={lang} />
-    </div>
+    </div></div>
   </section>
-  <section class="section section--sand" aria-labelledby="guided-h">
+  <section class="section" aria-labelledby="guided-h">
     <div class="wrap">
       <div class="head head--split">
         <h2 id="guided-h" class="rv">{x.guidedTitle}</h2>
