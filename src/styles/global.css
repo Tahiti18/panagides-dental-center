@@ -491,7 +491,9 @@ img[src*='cerec-unit'], source[srcset*='cerec-unit'] + img { object-fit: contain
 
 /* Closing band: its own light section, distinct from the dark footer */
 .closing-band { padding-bottom: clamp(48px, 6vw, 80px); }
-.closing-panel { padding: clamp(28px, 5vw, 64px); border-radius: 24px; background: linear-gradient(135deg, #e7f3f6 0%, #f3f8f9 60%, #eef3f1 100%); border: 1px solid rgba(0, 106, 130, 0.12); }
+/* The contact panel takes the opposite of its section's colour, edged in the logo's cyan */
+.closing-panel { padding: clamp(28px, 5vw, 64px); border-radius: 24px; background: var(--white); border: 1px solid rgba(0, 161, 195, 0.45); }
+main > section:nth-of-type(even) .closing-panel { background: var(--paper); }
 .closing-band .contact-grid { border-top-color: var(--line); }
 .closing-band .contact-grid h3 { color: var(--cyan-ink); }
 .closing-band .contact-grid p, .closing-band .contact-grid a, .closing-band .hours { color: var(--ink); }
