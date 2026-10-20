@@ -181,11 +181,11 @@ body.no-scroll { overflow: hidden; }
 .hero-media .frame { aspect-ratio: 4 / 3.2; border-radius: 20px; box-shadow: 0 40px 80px -48px rgba(27, 39, 51, 0.55); }
 .hero-media .frame img { object-position: 60% 50%; transform: scale(1.04); }
 .hero-badge { position: absolute; left: -12px; bottom: -22px; display: flex; align-items: center; gap: 14px; max-width: 320px; padding: 14px 18px; background: var(--white); border-radius: 14px; box-shadow: 0 20px 40px -24px rgba(27, 39, 51, 0.45); font-size: 0.86rem; line-height: 1.4; color: var(--text); }
-.hero-rating { width: fit-content; gap: 14px; padding: 14px 20px 14px 18px; text-decoration: none; color: var(--text); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.hero-rating { width: fit-content; gap: 12px; padding: 12px 18px 12px 16px; text-decoration: none; color: var(--text); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
 .hero-rating:hover { transform: translateY(-2px); box-shadow: 0 24px 44px -24px rgba(27, 39, 51, 0.5); }
-.hero-rating-num { font: 500 2.4rem/1 var(--serif); color: var(--ink); letter-spacing: -0.01em; }
+.hero-rating-num { font: 500 2.05rem/1 var(--serif); color: var(--ink); letter-spacing: -0.01em; }
 .hero-rating-meta { display: grid; gap: 4px; font-size: 0.86rem; color: var(--muted); }
-.hero-rating .stars svg { width: 20px; height: 20px; }
+.hero-rating .stars svg { width: 18px; height: 18px; }
 @media (max-width: 700px) { .hero-badge { position: relative; left: auto; bottom: auto; margin: -28px 12px 0; } }
 /* one-time "scan" sweep across the hero photo, echoing the intraoral scanner */
 .scan { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 0%, rgba(111, 211, 234, 0) 40%, rgba(111, 211, 234, 0.28) 49%, rgba(255, 255, 255, 0.55) 50%, rgba(111, 211, 234, 0.28) 51%, rgba(111, 211, 234, 0) 60%, transparent 100%); background-size: 100% 250%; background-position: 0 100%; opacity: 0; }
