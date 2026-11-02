@@ -46,7 +46,7 @@ const dentist = {
   {description && <meta property="og:description" content={description} />}
   <meta property="og:image" content={SITE_URL + '/img/hero-model-1280.jpg'} />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#f6f4ef" />
+  <meta name="theme-color" content="#344a5e" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preload" href="/fonts/piazzolla-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -65,7 +65,7 @@ const dentist = {
       </nav>
       <div class="header-actions">
         <a class="lang" href={switchTo} hreflang={o} lang={o} aria-label={t.langLabel}>{t.langShort}</a>
-        <a class="btn btn--primary header-book" href={href(lang, 'contact/')}>{t.book}</a>
+        <a class="btn btn--light header-book" href={href(lang, 'contact/')}>{t.book}</a>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="drawer" data-menu>
           <Icon name="menu" /><span data-menu-label data-open={t.menu} data-close={t.close}>{t.menu}</span>
         </button>
