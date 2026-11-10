@@ -5,7 +5,7 @@ interface Props { lang: Lang; item: (typeof cases)[number] }
 const { lang, item } = Astro.props;
 const L = lang === 'el' ? { b: 'Πριν', a: 'Μετά', s: 'Σύγκριση πριν και μετά' } : { b: 'Before', a: 'After', s: 'Compare before and after' };
 ---
-<figure class="ba" data-ba style={`--ratio:${item.w} / ${item.h}`}>
+<figure class="ba" data-ba style={`--ratio:${item.w} / ${item.h};--pad:${((item.h / item.w) * 100).toFixed(3)}%`}>
   <div class="ba-stage">
     <img src={`/img/cases/${item.key}-after.webp`} width={item.w} height={item.h} alt={`${L.a}: ${tr(lang, item.title)}`} loading="lazy" />
     <div class="ba-before"><img src={`/img/cases/${item.key}-before.webp`} width={item.w} height={item.h} alt={`${L.b}: ${tr(lang, item.title)}`} loading="lazy" /></div>
